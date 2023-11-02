@@ -1,7 +1,7 @@
 # Wordle
 
 ## Description
-TODO
+A 5 letter word guessing game. You have six chances to guess the day's secret five-letter word. Type in a word as a guess, and the game tells you which letters are or aren't in the word as well as if the location of the letter in the word is correct. The aim is to figure out the secret word with the fewest guesses. The word is selected at random from the database. The user will never be able to guess the same word twice.
 
 ## Contributors
 * [Aidan Youell](https://github.com/aidanyouell)
