@@ -1,0 +1,10 @@
+{
+  "name": "Wordle",
+  "private": true,
+  "version": "0.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "exit 0;",
+    "test": "exit 0;"
+  }
+}
