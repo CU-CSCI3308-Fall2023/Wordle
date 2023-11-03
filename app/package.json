@@ -5,7 +5,12 @@
   "main": "src/index.js",
   "scripts": {
     "start": "ts-node src/index",
-    "test": "exit 0;"
+    "test": "ts-node tests/index",
+    "prebuild": "rimraf dist",
+    "build": "tsc --project tsconfig.build.json"
+  },
+  "engines": {
+    "node": "^16"
   },
   "dependencies": {
     "body-parser": "^1.20.2",
@@ -29,6 +34,7 @@
     "lint-staged": "^15.0.2",
     "nodemon": "^3.0.1",
     "prettier": "^3.0.3",
+    "rimraf": "^5.0.5",
     "simple-git-hooks": "^2.9.0",
     "ts-node": "^10.9.1",
     "typescript": "^5.2.2"
