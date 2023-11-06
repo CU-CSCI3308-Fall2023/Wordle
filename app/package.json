@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "main": "src/index.js",
   "scripts": {
-    "start": "ts-node src/index",
+    "start": "nodemon src/index.ts",
     "test": "ts-node tests/index",
     "prebuild": "rimraf dist",
     "build": "tsc --project tsconfig.build.json"
