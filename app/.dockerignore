@@ -1,0 +1,12 @@
+node_modules
+dist
+.vscode
+.idea
+tests
+.git
+.prettierignore
+.eslintrc.json
+.env.template
+.eslintignore
+.gitignore
+.lintstagedrc.json
