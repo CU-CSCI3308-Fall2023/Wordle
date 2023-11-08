@@ -19,6 +19,8 @@ services:
         build: .
         image: app
         env_file: .env
+        environment:
+          - NODE_ENV=production
 #        volumes:
 #            - .:/app
         depends_on:

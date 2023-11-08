@@ -21,7 +21,8 @@ A 5 letter word guessing game. You have six chances to guess the day's secret fi
 ## Running Locally
 
 ### Prerequisites
-TODO
+- [Docker](https://www.docker.com/products/docker-desktop/)
+- [NodeJS LTS](https://nodejs.org/en/)
 
 ### App
 
@@ -29,6 +30,12 @@ First, install the needed dependencies:
 
 ```bash
 npm install
+```
+
+Next, be sure that you have created the `.env`:
+
+```bash
+cp .env.template .env # be sure to fill in the values
 ```
 
 And run the app locally:

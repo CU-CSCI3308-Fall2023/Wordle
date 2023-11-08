@@ -10,7 +10,7 @@
     "build": "tsc --project tsconfig.build.json"
   },
   "engines": {
-    "node": "^16"
+    "node": "lts/*"
   },
   "dependencies": {
     "@types/bcryptjs": "^2.4.5",
