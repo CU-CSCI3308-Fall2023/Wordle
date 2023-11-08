@@ -37,6 +37,14 @@ And run the app locally:
 npm run start
 ```
 
+To run using Docker, use:
+
+```bash
+docker compose up -d --build
+```
+
+Note that this will run the app in production mode. 
+
 ### Tests
 To run the tests, use
 ```bash
