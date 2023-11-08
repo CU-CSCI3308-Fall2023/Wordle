@@ -10,13 +10,16 @@
     "build": "tsc --project tsconfig.build.json"
   },
   "engines": {
-    "node": "^16"
+    "node": "lts/*"
   },
   "dependencies": {
+    "@types/bcryptjs": "^2.4.5",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.2",
     "ejs": "^3.1.9",
     "express": "^4.18.2",
-    "express-session": "^1.17.3"
+    "express-session": "^1.17.3",
+    "pg-promise": "^11.5.4"
   },
   "devDependencies": {
     "@types/body-parser": "^1.19.4",

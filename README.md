@@ -21,7 +21,8 @@ A 5 letter word guessing game. You have six chances to guess the day's secret fi
 ## Running Locally
 
 ### Prerequisites
-TODO
+- [Docker](https://www.docker.com/products/docker-desktop/)
+- [NodeJS LTS](https://nodejs.org/en/)
 
 ### App
 
@@ -31,11 +32,31 @@ First, install the needed dependencies:
 npm install
 ```
 
+Next, be sure that you have created the `.env`:
+
+```bash
+cp .env.template .env # be sure to fill in the values
+```
+
+Then start the database:
+
+```bash
+docker compose up -d db
+```
+
 And run the app locally:
 
 ```bash
 npm run start
 ```
+
+To run using Docker, use:
+
+```bash
+docker compose up -d --build
+```
+
+Note that this will run the app in **production** mode. 
 
 ### Tests
 To run the tests, use
