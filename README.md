@@ -38,6 +38,12 @@ Next, be sure that you have created the `.env`:
 cp .env.template .env # be sure to fill in the values
 ```
 
+Then start the database:
+
+```bash
+docker compose up -d db
+```
+
 And run the app locally:
 
 ```bash
@@ -50,7 +56,7 @@ To run using Docker, use:
 docker compose up -d --build
 ```
 
-Note that this will run the app in production mode. 
+Note that this will run the app in **production** mode. 
 
 ### Tests
 To run the tests, use
