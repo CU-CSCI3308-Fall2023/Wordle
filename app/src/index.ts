@@ -6,19 +6,6 @@ import session from 'express-session';
 
 import auth from './routers/auth';
 
-interface User {
-  id: number;
-  username: string;
-  password: string;
-  crated_at: Date;
-}
-
-declare module 'express-session' {
-  interface SessionData {
-    user: User;
-  }
-}
-
 const app = express();
 
 app.set('view engine', 'ejs');
