@@ -26,7 +26,7 @@ router.post('/login', async (req, res) => {
 
   try {
     const user = await db.oneOrNone<User>(
-      `SELECT * FROM users WHERE username = $1 AND password_hash`,
+      `SELECT * FROM users WHERE username = $1 AND password_hash = $2;`,
       [username, hash]
     );
 
