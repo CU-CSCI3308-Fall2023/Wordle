@@ -10,7 +10,9 @@ router.get('/login', async (req, res) => {
   res.render('views/login');
 });
 
-router.get('/signup', async (req, res) => {});
+router.get('/signup', async (req, res) => {
+  res.render('views/register');
+});
 
 router.post('/login', async (req, res) => {
   const { username, password } = req.body;
