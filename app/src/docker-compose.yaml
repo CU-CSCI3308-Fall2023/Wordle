@@ -1,0 +1,38 @@
+version: "3.9"
+services:
+    db:
+        image: postgres:14
+        ports:
+            - "5432:5432"
+        expose:
+            - "5432"
+        env_file: .env
+        volumes:
+            - wordle:/var/lib/postgresql/data
+            - ../seed:/docker-entrypoint-initdb.d
+        healthcheck:
+            test:
+                [
+                    "CMD-SHELL",
+                    "pg_isready -U postgres && psql --username=postgres --list",
+                ]
+            interval: 1s
+            timeout: 20s
+            retries: 20
+    web:
+        build: .
+        image: node:lts
+        user: "node"
+        working_dir: /home/node/app/src
+        env_file: .env
+        environment:
+            - NODE_ENV=development
+        depends_on:
+            - db
+        ports:
+            - "3000:3000"
+        volumes:
+            - ./:/home/node/app/src
+        command: "npm start"
+volumes:
+    wordle:
