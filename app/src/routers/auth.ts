@@ -6,7 +6,9 @@ import { User } from '../types';
 
 const router = express.Router();
 
-router.get('/login', async (req, res) => {});
+router.get('/login', async (req, res) => {
+  res.render('views/login');
+});
 
 router.get('/signup', async (req, res) => {});
 

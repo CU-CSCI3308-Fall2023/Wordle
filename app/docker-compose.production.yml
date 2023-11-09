@@ -2,8 +2,6 @@ version: '3.9'
 services:
     db:
       image: postgres:14
-      ports:
-        - "5432:5432"
       expose:
         - "5432"
       env_file: .env
@@ -17,12 +15,12 @@ services:
         retries: 20
     web:
         build: .
-        image: app
+        image: app-prod
         env_file: .env
+        ports:
+            - "3000:3000"
         environment:
           - NODE_ENV=production
-#        volumes:
-#            - .:/app
         depends_on:
             db:
               condition: service_healthy
