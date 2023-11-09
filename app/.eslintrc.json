@@ -1,41 +1,37 @@
 {
-  "extends": [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
-    "prettier",
-    "plugin:prettier/recommended"
-  ],
-  "plugins": [
-    "simple-import-sort",
-    "@typescript-eslint",
-    "prettier"
-  ],
-  "parser": "@typescript-eslint/parser",
-  "env": {
-    "node": true
-  },
-  "parserOptions": {
-    "project": "./tsconfig.json"
-  },
-  "rules": {
-    "prettier/prettier": [
-      "error",
-      {
-        "arrowParens": "avoid",
-        "trailingComma": "none",
-        "singleQuote": true
-      }
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "prettier",
+        "plugin:prettier/recommended"
     ],
-    "simple-import-sort/imports": "error",
-    "simple-import-sort/exports": "error",
-    "@typescript-eslint/ban-ts-comment": "off",
-    "@typescript-eslint/no-unused-vars": [
-      "warn",
-      {
-        "argsIgnorePattern": "^_",
-        "varsIgnorePattern": "^_",
-        "caughtErrorsIgnorePattern": "^_"
-      }
-    ]
-  }
+    "plugins": ["simple-import-sort", "@typescript-eslint", "prettier"],
+    "parser": "@typescript-eslint/parser",
+    "env": {
+        "node": true
+    },
+    "parserOptions": {
+        "project": "./app/tsconfig.json"
+    },
+    "rules": {
+        "prettier/prettier": [
+            "error",
+            {
+                "arrowParens": "avoid",
+                "trailingComma": "none",
+                "singleQuote": true
+            }
+        ],
+        "simple-import-sort/imports": "error",
+        "simple-import-sort/exports": "error",
+        "@typescript-eslint/ban-ts-comment": "off",
+        "@typescript-eslint/no-unused-vars": [
+            "warn",
+            {
+                "argsIgnorePattern": "^_",
+                "varsIgnorePattern": "^_",
+                "caughtErrorsIgnorePattern": "^_"
+            }
+        ]
+    }
 }
