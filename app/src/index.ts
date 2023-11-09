@@ -1,13 +1,16 @@
+require('dotenv').config(); // eslint-disable-line @typescript-eslint/no-var-requires
 import './db'; // although we don't use it directly, we need to import it to connect to the database
 
 import bodyParser from 'body-parser';
 import express from 'express';
 import session from 'express-session';
+import path from 'path';
 
 import auth from './routers/auth';
 
 const app = express();
 
+app.set('views', path.join(__dirname, 'ui'));
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
