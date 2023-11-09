@@ -26,6 +26,18 @@ A 5 letter word guessing game. You have six chances to guess the day's secret fi
 
 ### App
 
+#### Docker
+
+The recommended way to run the app locally is to use Docker. To run it, start up the `docker-compose.yml` file:
+
+```bash
+docker compose up -d
+```
+
+The app will now be live at `http://localhost:3000`.
+
+#### Directly
+
 First, install the needed dependencies:
 
 ```bash
@@ -50,15 +62,20 @@ And run the app locally:
 npm run start
 ```
 
-To run using Docker, use:
+#### Production
+
+The above will run the applicaton in development mode; to run it in production mode, use the `docker-compose.production.yml` file:
 
 ```bash
-docker compose up -d --build
+docker compose -f docker-compose.production.yml up -d --build
 ```
 
-Note that this will run the app in **production** mode. 
-
 ### Tests
+
+#### Docker
+TODO
+
+#### Locally
 To run the tests, use
 ```bash
 npm run test
