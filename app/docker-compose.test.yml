@@ -1,0 +1,29 @@
+version: '3.9'
+services:
+    db:
+      image: postgres:14
+      expose:
+        - "5432"
+      env_file: .env
+      volumes:
+        - db-test:/var/lib/postgresql/data
+        - ./seed:/docker-entrypoint-initdb.d
+      healthcheck:
+        test: [ "CMD-SHELL", "pg_isready -U postgres && psql --username=postgres --list" ]
+        interval: 1s
+        timeout: 20s
+        retries: 20
+    web:
+        image: node:lts
+        working_dir: /app-test
+        env_file: .env
+        entrypoint: ["npm", "run", "test"]
+        environment:
+          - NODE_ENV=test
+        volumes:
+            - .:/app-test
+        depends_on:
+            db:
+              condition: service_healthy
+volumes:
+  db-test:

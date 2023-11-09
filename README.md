@@ -73,10 +73,21 @@ docker compose -f docker-compose.production.yml up -d --build
 ### Tests
 
 #### Docker
-TODO
+
+To run the tests using docker, run the following command:
+
+```bash
+docker compose -f docker-compose.test.yml up -d --build
+```
+
+If the container exits gracefully, the tests have passed.
 
 #### Locally
-To run the tests, use
+
+To run the tests locally, be sure that you have all the dependencies in place. Check the [Running Locally](#running-locally) section for more information.
+
+Then, run the tests:
+
 ```bash
 npm run test
 ```
