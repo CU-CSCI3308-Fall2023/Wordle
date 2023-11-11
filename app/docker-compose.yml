@@ -25,6 +25,7 @@ services:
         entrypoint: ["npm", "run", "start"]
         environment:
           - NODE_ENV=development
+          - POSTGRES_HOST=db
         volumes:
             - .:/app
         depends_on:
