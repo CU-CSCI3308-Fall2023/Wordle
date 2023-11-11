@@ -1,3 +1,5 @@
+import game from './routers/game';
+
 require('dotenv').config(); // eslint-disable-line @typescript-eslint/no-var-requires
 import './db'; // although we don't use it directly, we need to import it to connect to the database
 
@@ -28,6 +30,7 @@ app.use(
 
 // all routes after this middleware require authentication
 app.use(auth);
+app.use('/game', game);
 
 export const server = app.listen(3000, () => {
   console.log('Listening on port 3000');

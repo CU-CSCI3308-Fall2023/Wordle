@@ -1,0 +1,127 @@
+import express from 'express';
+
+import db from '../db';
+
+const router = express.Router();
+
+interface Word {
+  id: number;
+  word: string;
+}
+
+interface Game {
+  id: number;
+  user_id: number;
+  word_id: number;
+  guessed_correctly: boolean;
+  created_at: Date;
+}
+
+interface StartGameRequest {
+  guess: string;
+}
+
+interface FollowUpRequest {
+  gameId: number;
+  guess: string;
+}
+
+interface GuessLetterFeedback {
+  letter: string;
+  isInWord: boolean;
+  isInCorrectPosition: boolean;
+}
+
+interface GuessResponse {
+  gameId: number;
+  remainingGuesses: number;
+  canKeepGuessing: boolean;
+  won: boolean;
+  currentPoints: number;
+  guesses: GuessLetterFeedback[][];
+}
+
+/**
+ * Checks if the guess is valid, that is, only contains lowercase english letters and is 5 characters long.
+ */
+function isGuessValid(guess: string): boolean {
+  return guess.length === 5 && /^[a-z]+$/.test(guess);
+}
+
+function getGuessFeedback({
+  word,
+  guess
+}: {
+  word: string;
+  guess: string;
+}): GuessLetterFeedback[] {
+  const feedback: GuessLetterFeedback[] = [];
+
+  for (let i = 0; i < guess.length; i++) {
+    const letter = guess[i];
+    const isInWord = word.includes(letter);
+    const isInCorrectPosition = word[i] === letter;
+
+    feedback.push({ letter, isInWord, isInCorrectPosition });
+  }
+
+  return feedback;
+}
+
+router.post<StartGameRequest, GuessResponse>('/start', async (req, res) => {
+  const { guess } = req.body;
+  const userId = req.session.user!.id;
+
+  if (!isGuessValid(guess)) {
+    return res.status(400).end();
+  }
+
+  // pick a random word the user has npt guesses to be the answer
+  const word = await db.oneOrNone<Word>(
+    `
+    SELECT *
+    FROM words
+    WHERE id NOT IN (SELECT word_id
+                     FROM games
+                     WHERE user_id = $1
+                       AND guessed_correctly = TRUE)
+    ORDER BY RANDOM()
+    LIMIT 1;
+  `,
+    [userId]
+  );
+
+  // technically it can be null if the user won all the 2000+ words
+  if (!word) {
+    return res.status(500).end();
+  }
+
+  const gameId = await db.tx(async t => {
+    // create a new game with the picked word
+    const gameId = await t.one<number>(
+      `INSERT INTO games (user_id, word_id) VALUES ($1, $2) RETURNING id;`,
+      [userId, word.id]
+    );
+
+    // create a new guess with the user's guess
+    await t.none(`INSERT INTO guesses (game_id, guess) VALUES ($1, $2);`, [
+      gameId,
+      guess
+    ]);
+
+    return gameId;
+  });
+
+  const wonOnFirstGuess = guess === word.word;
+
+  res.json({
+    gameId,
+    remainingGuesses: wonOnFirstGuess ? 5 : 0,
+    canKeepGuessing: !wonOnFirstGuess,
+    won: wonOnFirstGuess,
+    currentPoints: wonOnFirstGuess ? 6 : 5,
+    guesses: [getGuessFeedback({ word: word.word, guess })]
+  });
+});
+
+export default router;
