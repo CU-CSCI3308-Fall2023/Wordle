@@ -144,29 +144,46 @@ router.post<FollowUpRequest, GuessResponse>('/guess', async (req, res) => {
     return res.status(400).end();
   }
 
-  const gameAndWord = await db.oneOrNone<
-    Omit<Game & Word, 'id'> & { 'g.id': number; 'w.id': number }
-  >(
+  type GameWordAndGuessesQuery = Omit<
+    Game & Word & Guess,
+    'id' | 'created_at'
+  > & {
+    'game.id': number;
+    'word.id': number;
+    'guess.id': number;
+    'guess.created_at': Date;
+    'game.created_at': Date;
+  };
+
+  // the only changing element in the array is the guess - word and game data will be the same for all of them
+  // each element in the array represents a guess
+  const gameWordAndGuesses = await db.any<GameWordAndGuessesQuery>(
     `SELECT *
-     FROM games g
-              JOIN words w ON g.word_id = w.id
-     WHERE g.id = $1
-       AND g.user_id = $2
-       AND g.guessed_correctly = FALSE
+     FROM games game
+              JOIN words word ON game.word_id = word.id
+              JOIN guesses guess ON guess.game_id = game.id -- Join instead of left join since we know at least one guess exists from /start
+     WHERE game.id = 2
+       AND game.user_id = 1
+       AND game.guessed_correctly = FALSE
        AND (SELECT COUNT(*)
             FROM guesses
-            WHERE game_id = $1) < 6;`,
+            WHERE game_id = 2) < 6
+     ORDER BY guess.created_at;`,
     [gameId, userId]
   );
 
-  if (!gameAndWord) {
+  if (gameWordAndGuesses.length === 0) {
     return res.status(404).end();
   }
 
-  const guesses = await db.any<Guess>(
-    `SELECT * FROM guesses WHERE game_id = $1 ORDER BY created_at;`,
-    [gameId]
-  );
+  const winningWord = gameWordAndGuesses[0].word;
+
+  const guesses = gameWordAndGuesses.map<Guess>(data => ({
+    guess: data.guess,
+    id: data['guess.id'],
+    created_at: data['guess.created_at'],
+    game_id: data['game.id']
+  }));
 
   // if user has already tried this guess, return 400
   if (guesses.some(g => g.guess === guess)) {
@@ -175,13 +192,15 @@ router.post<FollowUpRequest, GuessResponse>('/guess', async (req, res) => {
 
   const won = await db.tx(async t => {
     // create a new guess with the user's guess
-    await t.none(`INSERT INTO guesses (game_id, guess) VALUES ($1, $2);`, [
-      gameId,
-      guess
-    ]);
+    const newGuess = await t.one<Guess>(
+      `INSERT INTO guesses (game_id, guess) VALUES ($1, $2) RETURNING *;`,
+      [gameId, guess]
+    );
+
+    guesses.push(newGuess);
 
     // check if the user won and update the game entry
-    const won = guess === gameAndWord.word;
+    const won = guess === winningWord;
 
     if (won) {
       await t.none(`UPDATE games SET guessed_correctly = TRUE WHERE id = $1;`, [
@@ -192,18 +211,15 @@ router.post<FollowUpRequest, GuessResponse>('/guess', async (req, res) => {
     return won;
   });
 
-  // add one to the total guesses to account for the current guess
-  const totalGuesses = guesses.length + 1;
-
   res.json({
     gameId,
-    remainingGuesses: won ? 0 : 6 - totalGuesses,
-    canKeepGuessing: !won && totalGuesses < 6,
+    remainingGuesses: won ? 0 : 6 - guesses.length,
+    canKeepGuessing: !won && guesses.length < 6,
     won,
-    currentPoints: 6 - totalGuesses + 1, // +1 because we added the current guess to the total
+    currentPoints: 6 - guesses.length + 1, // +1 since if the user won at the second guess, they get 5 points and so on
     guesses: [
       ...getAllGuessesFeedback(guesses),
-      getGuessFeedback({ word: gameAndWord.word, guess })
+      getGuessFeedback({ word: winningWord, guess })
     ]
   });
 });
