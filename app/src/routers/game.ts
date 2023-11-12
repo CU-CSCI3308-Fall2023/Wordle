@@ -169,7 +169,7 @@ router.post<FollowUpRequest, GuessResponse>('/guess', async (req, res) => {
   );
 
   // if user has already tried this guess, return 400
-  if (guesses.some(g => g.guess === guess) || guesses.length >= 6) {
+  if (guesses.some(g => g.guess === guess)) {
     return res.status(400).end();
   }
 
@@ -200,7 +200,7 @@ router.post<FollowUpRequest, GuessResponse>('/guess', async (req, res) => {
     remainingGuesses: won ? 0 : 6 - totalGuesses,
     canKeepGuessing: !won && totalGuesses < 6,
     won,
-    currentPoints: 6 - totalGuesses,
+    currentPoints: 6 - totalGuesses + 1, // +1 because we added the current guess to the total
     guesses: [
       ...getAllGuessesFeedback(guesses),
       getGuessFeedback({ word: gameAndWord.word, guess })
