@@ -9,6 +9,13 @@ interface Word {
   word: string;
 }
 
+interface Guess {
+  id: number;
+  game_id: number;
+  guess: string;
+  created_at: Date;
+}
+
 interface Game {
   id: number;
   user_id: number;
@@ -68,8 +75,12 @@ function getGuessFeedback({
   return feedback;
 }
 
+function getAllGuessesFeedback(guesses: Guess[]): GuessLetterFeedback[][] {
+  return guesses.map(g => getGuessFeedback({ word: '', guess: g.guess }));
+}
+
 router.post<StartGameRequest, GuessResponse>('/start', async (req, res) => {
-  const { guess } = req.body;
+  const guess = req.body.guess.toLowerCase();
   const userId = req.session.user!.id;
 
   if (!isGuessValid(guess)) {
@@ -121,6 +132,79 @@ router.post<StartGameRequest, GuessResponse>('/start', async (req, res) => {
     won: wonOnFirstGuess,
     currentPoints: wonOnFirstGuess ? 6 : 5,
     guesses: [getGuessFeedback({ word: word.word, guess })]
+  });
+});
+
+router.post<FollowUpRequest, GuessResponse>('/guess', async (req, res) => {
+  const { gameId } = req.body;
+  const guess = req.body.guess.toLowerCase();
+  const userId = req.session.user!.id;
+
+  if (!isGuessValid(guess)) {
+    return res.status(400).end();
+  }
+
+  const gameAndWord = await db.oneOrNone<
+    Omit<Game & Word, 'id'> & { 'g.id': number; 'w.id': number }
+  >(
+    `SELECT *
+     FROM games g
+              JOIN words w ON g.word_id = w.id
+     WHERE g.id = $1
+       AND g.user_id = $2
+       AND g.guessed_correctly = FALSE
+       AND (SELECT COUNT(*)
+            FROM guesses
+            WHERE game_id = $1) < 6;`,
+    [gameId, userId]
+  );
+
+  if (!gameAndWord) {
+    return res.status(404).end();
+  }
+
+  const guesses = await db.any<Guess>(
+    `SELECT * FROM guesses WHERE game_id = $1 ORDER BY created_at;`,
+    [gameId]
+  );
+
+  // if user has already tried this guess, return 400
+  if (guesses.some(g => g.guess === guess) || guesses.length >= 6) {
+    return res.status(400).end();
+  }
+
+  const won = await db.tx(async t => {
+    // create a new guess with the user's guess
+    await t.none(`INSERT INTO guesses (game_id, guess) VALUES ($1, $2);`, [
+      gameId,
+      guess
+    ]);
+
+    // check if the user won and update the game entry
+    const won = guess === gameAndWord.word;
+
+    if (won) {
+      await t.none(`UPDATE games SET guessed_correctly = TRUE WHERE id = $1;`, [
+        gameId
+      ]);
+    }
+
+    return won;
+  });
+
+  // add one to the total guesses to account for the current guess
+  const totalGuesses = guesses.length + 1;
+
+  res.json({
+    gameId,
+    remainingGuesses: won ? 0 : 6 - totalGuesses,
+    canKeepGuessing: !won && totalGuesses < 6,
+    won,
+    currentPoints: 6 - totalGuesses,
+    guesses: [
+      ...getAllGuessesFeedback(guesses),
+      getGuessFeedback({ word: gameAndWord.word, guess })
+    ]
   });
 });
 
