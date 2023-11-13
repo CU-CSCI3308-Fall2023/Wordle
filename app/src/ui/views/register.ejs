@@ -1,0 +1,16 @@
+<%- include ('../partials/head') %>
+    <main>
+        <h1>Register</h1>
+        <div class="container">
+            <form action="/signup" method="POST">
+                <label for="name">Username:</label>
+                <input type="text" id=" name" name="username" />
+
+                <label for="password">Password:</label>
+                <input type="password" id=" password" name="password" />
+
+                <input type="submit" value="Register" />
+            </form>
+        </div>
+        <p>Already have a login? <a href="/login">Login</a> here</p>
+    </main>
