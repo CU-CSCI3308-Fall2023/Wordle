@@ -35,6 +35,8 @@ interface FollowUpRequest {
 
 interface GuessLetterFeedback {
   letter: string;
+  index: number;
+  guess: string;
   isInWord: boolean;
   isInCorrectPosition: boolean;
 }
@@ -51,8 +53,10 @@ interface GuessResponse {
 /**
  * Checks if the guess is valid, that is, only contains lowercase english letters and is 5 characters long.
  */
-function isGuessValid(guess: string): boolean {
-  return guess.length === 5 && /^[a-z]+$/.test(guess);
+function isGuessValid(guess: unknown): boolean {
+  return (
+    typeof guess === 'string' && guess.length === 5 && /^[a-z]+$/.test(guess)
+  );
 }
 
 function getGuessFeedback({
@@ -69,7 +73,7 @@ function getGuessFeedback({
     const isInWord = word.includes(letter);
     const isInCorrectPosition = word[i] === letter;
 
-    feedback.push({ letter, isInWord, isInCorrectPosition });
+    feedback.push({ letter, isInWord, isInCorrectPosition, index: i, guess });
   }
 
   return feedback;
@@ -104,7 +108,7 @@ router.post<StartGameRequest, GuessResponse>('/start', async (req, res) => {
 
   // technically it can be null if the user won all the 2000+ words
   if (!word) {
-    return res.status(500).end();
+    return res.status(418).end();
   }
 
   const gameId = await db.tx(async t => {
@@ -127,7 +131,7 @@ router.post<StartGameRequest, GuessResponse>('/start', async (req, res) => {
 
   res.json({
     gameId,
-    remainingGuesses: wonOnFirstGuess ? 5 : 0,
+    remainingGuesses: wonOnFirstGuess ? 0 : 5,
     canKeepGuessing: !wonOnFirstGuess,
     won: wonOnFirstGuess,
     currentPoints: wonOnFirstGuess ? 6 : 5,
