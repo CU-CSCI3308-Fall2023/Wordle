@@ -15,6 +15,7 @@ describe('GameRouter', function () {
   before(async () => {
     const hash = await bcrypt.hash('password', 10);
 
+    // FIXME: Connection pool is increasing after this
     await db.tx(async t => {
       await t.none('TRUNCATE TABLE users RESTART IDENTITY CASCADE;');
       await t.none(

@@ -113,7 +113,7 @@ router.post<StartGameRequest, GuessResponse>('/start', async (req, res) => {
 
   const gameId = await db.tx(async t => {
     // create a new game with the picked word
-    const gameId = await t.one<number>(
+    const { id: gameId } = await t.one<{ id: number }>(
       `INSERT INTO games (user_id, word_id) VALUES ($1, $2) RETURNING id;`,
       [userId, word.id]
     );
