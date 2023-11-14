@@ -3,7 +3,7 @@ import pgPromise from 'pg-promise';
 const pgp = pgPromise();
 
 const db = pgp({
-  host: 'db',
+  host: process.env.POSTGRES_HOST,
   port: 5432,
   database: process.env.POSTGRES_DB,
   user: process.env.POSTGRES_USER,

@@ -24,15 +24,13 @@ router.post('/login', async (req, res) => {
     return res.status(400).end();
   }
 
-  const hash = await bcrypt.hash(password, 10);
-
   try {
     const user = await db.oneOrNone<User>(
-      `SELECT * FROM users WHERE username = $1 AND password_hash = $2;`,
-      [username, hash]
+      `SELECT * FROM users WHERE username = $1;`,
+      [username]
     );
 
-    if (!user) {
+    if (!user || !(await bcrypt.compare(password, user.password_hash))) {
       // TODO: Render the login page with an error message
       return res.status(401).end();
     }
