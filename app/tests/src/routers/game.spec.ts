@@ -43,15 +43,13 @@ describe('GameRouter', () => {
     const invalidGuesses = ['looooong', 'shrt', '12345'];
 
     invalidGuesses.forEach(guess => {
-      it(`should return 400 if the guess is not valid (${guess})`, done => {
+      it(`should return 400 if the guess is not valid (${guess})`, () =>
         agent
           .post('/game/start')
           .send({ guess })
-          .end((err, res) => {
+          .then(res => {
             expect(res).to.have.status(400);
-            done();
-          });
-      });
+          }));
     });
 
     it('should not use words that the user has already guessed', async () => {
@@ -70,11 +68,11 @@ describe('GameRouter', () => {
       await db.none('TRUNCATE TABLE games RESTART IDENTITY CASCADE;');
     });
 
-    it('should return the correct response if the first guess is correct', done => {
+    it('should return the correct response if the first guess is correct', () =>
       agent
         .post('/game/start')
         .send({ guess: 'right' })
-        .end((err, res) => {
+        .then(res => {
           expect(res).to.have.status(200);
           expect(res.body).to.deep.equal({
             gameId: 1,
@@ -92,15 +90,13 @@ describe('GameRouter', () => {
               }))
             ]
           });
-          done();
-        });
-    });
+        }));
 
-    it('should return the correct response if the first guess is incorrect', done => {
+    it('should return the correct response if the first guess is incorrect', () =>
       agent
         .post('/game/start')
         .send({ guess: 'wrong' })
-        .end((err, res) => {
+        .then(res => {
           expect(res).to.have.status(200);
           expect(res.body).to.deep.equal({
             gameId: 1,
@@ -118,9 +114,7 @@ describe('GameRouter', () => {
               }))
             ]
           });
-          done();
-        });
-    });
+        }));
   });
 
   describe('POST /game/guess', () => {
