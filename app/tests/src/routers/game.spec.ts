@@ -7,15 +7,12 @@ import db from '../../../src/db';
 
 chai.use(chaiHttp);
 
-describe('GameRouter', function () {
-  this.timeout(10000);
-
+describe('GameRouter', () => {
   const agent = chai.request.agent(server);
 
   before(async () => {
     const hash = await bcrypt.hash('password', 10);
 
-    // FIXME: Connection pool is increasing after this
     await db.tx(async t => {
       await t.none('TRUNCATE TABLE users RESTART IDENTITY CASCADE;');
       await t.none(
@@ -57,18 +54,17 @@ describe('GameRouter', function () {
       });
     });
 
-    it('should not use words that the user has already guessed', async done => {
+    it('should not use words that the user has already guessed', async () => {
       await db.none(
         'INSERT INTO games (user_id, word_id, guessed_correctly) VALUES (1, 1, TRUE);'
       );
 
       // since we only have one word, the game should fail to start
-      agent
+      await agent
         .post('/game/start')
         .send({ guess: 'right' })
-        .end((err, res) => {
+        .then(res => {
           expect(res).to.have.status(418);
-          done();
         });
 
       await db.none('TRUNCATE TABLE games RESTART IDENTITY CASCADE;');
