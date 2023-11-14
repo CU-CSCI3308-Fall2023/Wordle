@@ -148,6 +148,7 @@ router.post<FollowUpRequest, GuessResponse>('/guess', async (req, res) => {
     return res.status(400).end();
   }
 
+  // FIXME: This query is not returning the data like game.id, etc as expected
   type GameWordAndGuessesQuery = Omit<
     Game & Word & Guess,
     'id' | 'created_at'
@@ -166,12 +167,12 @@ router.post<FollowUpRequest, GuessResponse>('/guess', async (req, res) => {
      FROM games game
               JOIN words word ON game.word_id = word.id
               JOIN guesses guess ON guess.game_id = game.id -- Join instead of left join since we know at least one guess exists from /start
-     WHERE game.id = 2
-       AND game.user_id = 1
+     WHERE game.id = $1
+       AND game.user_id = $2
        AND game.guessed_correctly = FALSE
        AND (SELECT COUNT(*)
             FROM guesses
-            WHERE game_id = 2) < 6
+            WHERE game_id = $1) < 6
      ORDER BY guess.created_at;`,
     [gameId, userId]
   );

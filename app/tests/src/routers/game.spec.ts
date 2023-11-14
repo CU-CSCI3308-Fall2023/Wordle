@@ -7,6 +7,9 @@ import db from '../../../src/db';
 
 chai.use(chaiHttp);
 
+const invalidGuesses = ['looooong', 'shrt', '12345'];
+const winningGuess = 'right';
+
 describe('GameRouter', () => {
   const agent = chai.request.agent(server);
 
@@ -35,13 +38,13 @@ describe('GameRouter', () => {
       await t.none(
         'TRUNCATE TABLE games, guesses, words RESTART IDENTITY CASCADE;'
       );
-      await t.none('INSERT INTO words (id, word) VALUES (1, $1);', ['right']);
+      await t.none('INSERT INTO words (id, word) VALUES (1, $1);', [
+        winningGuess
+      ]);
     });
   });
 
   describe('POST /game/start', () => {
-    const invalidGuesses = ['looooong', 'shrt', '12345'];
-
     invalidGuesses.forEach(guess => {
       it(`should return 400 if the guess is not valid (${guess})`, () =>
         agent
@@ -60,7 +63,7 @@ describe('GameRouter', () => {
       // since we only have one word, the game should fail to start
       await agent
         .post('/game/start')
-        .send({ guess: 'right' })
+        .send({ guess: winningGuess })
         .then(res => {
           expect(res).to.have.status(418);
         });
@@ -71,7 +74,7 @@ describe('GameRouter', () => {
     it('should return the correct response if the first guess is correct', () =>
       agent
         .post('/game/start')
-        .send({ guess: 'right' })
+        .send({ guess: winningGuess })
         .then(res => {
           expect(res).to.have.status(200);
           expect(res.body).to.deep.equal({
@@ -81,10 +84,10 @@ describe('GameRouter', () => {
             won: true,
             currentPoints: 6,
             guesses: [
-              'right'.split('').map((letter, index) => ({
+              winningGuess.split('').map((letter, index) => ({
                 letter,
                 index,
-                guess: 'right',
+                guess: winningGuess,
                 isInWord: true,
                 isInCorrectPosition: true
               }))
@@ -109,8 +112,8 @@ describe('GameRouter', () => {
                 letter,
                 index,
                 guess: 'wrong',
-                isInWord: 'right'.includes(letter),
-                isInCorrectPosition: 'right'[index] === letter
+                isInWord: winningGuess.includes(letter),
+                isInCorrectPosition: winningGuess[index] === letter
               }))
             ]
           });
@@ -118,19 +121,118 @@ describe('GameRouter', () => {
   });
 
   describe('POST /game/guess', () => {
-    it.skip('should return 400 if the guess is not valid');
-    it.skip("should return 404 if the user doesn't own the game");
-    it.skip('should return 404 if the user has already won the game');
-    it.skip('should return 404 if the user has already lost the game');
-    it.skip('should return 400 if the user tries the same guess twice');
-    it.skip('should ignore the case of the guess');
-    it.skip(
-      'should update the guessed_correctly column if the guess is correct'
-    );
-    it.skip(
-      'should return the feedback for all the guesses in chronological order'
-    );
-    it.skip('should compute the points based on the number of guesses');
-    it.skip('should return if the user can still guess');
+    beforeEach(async () => {
+      await agent.post('/game/start').send({ guess: 'wrong' });
+    });
+
+    afterEach(async () => {
+      await db.none('TRUNCATE TABLE games RESTART IDENTITY CASCADE;');
+    });
+
+    invalidGuesses.forEach(guess => {
+      it(`should return 400 if the guess is not valid (${guess})`, () =>
+        agent
+          .post('/game/start')
+          .send({ guess })
+          .then(res => {
+            expect(res).to.have.status(400);
+          }));
+    });
+
+    it("should return 404 if the user doesn't own the game", async () => {
+      await db.tx(async t => {
+        await t.none(
+          `INSERT INTO users (id, username, password_hash) VALUES (2, 'user2', 'hash');`
+        );
+        await t.none('UPDATE games SET user_id = 2 WHERE user_id = 1;');
+      });
+
+      await agent
+        .post('/game/guess')
+        .send({ gameId: 1, guess: 'tests' })
+        .then(res => {
+          expect(res).to.have.status(404);
+        });
+    });
+
+    it('should return 404 if the user has already won the game', async () => {
+      await db.none('UPDATE games SET guessed_correctly = TRUE WHERE id = 1;');
+
+      await agent
+        .post('/game/guess')
+        .send({ gameId: 1, guess: 'tests' })
+        .then(res => {
+          expect(res).to.have.status(404);
+        });
+    });
+
+    it('should return 404 if the user has already lost the game', async () => {
+      // use up all the guesses
+      const guesses = ['polar', 'polka', 'polyp', 'pooch', 'poppy'];
+      for (let i = 0; i < 5; i++) {
+        await agent
+          .post('/game/guess')
+          .send({ gameId: 1, guess: guesses[i] })
+          .then(res => {
+            expect(res).to.have.status(200);
+          });
+      }
+
+      await agent
+        .post('/game/guess')
+        .send({ gameId: 1, guess: winningGuess })
+        .then(res => {
+          expect(res).to.have.status(404);
+        });
+    });
+
+    it('should return 400 if the user tries the same guess twice', () =>
+      agent
+        .post('/game/guess')
+        .send({ gameId: 1, guess: 'wrong' })
+        .then(res => {
+          expect(res).to.have.status(400);
+        }));
+
+    it('should update the guessed_correctly column if the guess is correct', async () => {
+      await agent.post('/game/guess').send({ gameId: 1, guess: winningGuess });
+
+      const { guessed_correctly } = await db.one(
+        'SELECT guessed_correctly FROM games WHERE id = 1;'
+      );
+
+      expect(guessed_correctly).to.be.true;
+    });
+
+    it('should return the feedback for all the guesses in chronological order', () =>
+      agent
+        .post('/game/guess')
+        .send({ gameId: 1, guess: 'polka' })
+        .then(res => {
+          expect(res).to.have.status(200);
+          expect(res.body).to.deep.equal({
+            gameId: 1,
+            remainingGuesses: 4,
+            canKeepGuessing: true,
+            won: false,
+            currentPoints: 5,
+            guesses: [
+              'wrong'.split('').map((letter, index) => ({
+                letter,
+                index,
+                guess: 'wrong',
+                isInWord: winningGuess.includes(letter),
+                isInCorrectPosition: winningGuess[index] === letter
+              })),
+              'polka'.split('').map((letter, index) => ({
+                letter,
+                index,
+                guess: 'polka',
+                isInWord: winningGuess.includes(letter),
+                isInCorrectPosition: winningGuess[index] === letter
+              }))
+            ]
+          });
+        }));
   });
 });
