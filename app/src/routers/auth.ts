@@ -12,10 +12,6 @@ router.get('/login', async (req, res) => {
 
 router.get('/signup', async (req, res) => {});
 
-router.get('/how-to-play', async (req, res) => {
-  res.render('views/instructions');
-});
-
 router.post('/login', async (req, res) => {
   const { username, password } = req.body;
 
