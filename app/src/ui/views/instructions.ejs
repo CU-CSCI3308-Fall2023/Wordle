@@ -1,0 +1,37 @@
+<%- include ('../partials/header') %> 
+
+<!-- <%- include ('../partials/nav-bar') %> uncomment when partials/nav-bar.ejs is created -->
+
+
+<main>
+ <div class="container">
+   <h1><centre>How To Play:</centre></h1>
+  
+   <h3>Goal: Guess the word in the least amount of guesses possible!</h3>
+
+
+   <section>
+       <ul>
+           <li>Enter a five letter word</li>
+           <li>Watch the colors of the tiles change after your guess</li>
+           <li>If you cannot guess the word in six tries, you lose the game</li>
+           <li>Compare your stats with other players at the end of each game</li>
+       </ul>
+       <div>
+           <p>
+               <strong>Understanding the colors:</strong>
+               <ul>
+                   <li>If a letter is <span style="color: green"><strong>GREEN</strong></span>: the letter is in the word <strong>and</strong> in the correct position</li>
+                   <li>If a letter is <span style="color:#CCCC00"><strong>YELLOW</strong></span>: the letter is in the word <strong>but</strong> it is in the wrong position</li>
+                   <li>If a letter is <span style="color: grAY"><strong>GRAY</strong></span>: the letter is <strong>not</strong> in the word</li>
+               </ul>
+           </p>
+       </div>
+   </section>
+
+
+ </div>
+</main>
+
+
+<%- include ('../partials/footer') %>
