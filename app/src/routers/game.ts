@@ -79,8 +79,11 @@ function getGuessFeedback({
   return feedback;
 }
 
-function getAllGuessesFeedback(guesses: Guess[]): GuessLetterFeedback[][] {
-  return guesses.map(g => getGuessFeedback({ word: '', guess: g.guess }));
+function getAllGuessesFeedback(
+  guesses: Guess[],
+  word: string
+): GuessLetterFeedback[][] {
+  return guesses.map(g => getGuessFeedback({ word, guess: g.guess }));
 }
 
 router.post<StartGameRequest, GuessResponse>('/start', async (req, res) => {
@@ -148,22 +151,19 @@ router.post<FollowUpRequest, GuessResponse>('/guess', async (req, res) => {
     return res.status(400).end();
   }
 
-  // FIXME: This query is not returning the data like game.id, etc as expected
-  type GameWordAndGuessesQuery = Omit<
-    Game & Word & Guess,
-    'id' | 'created_at'
-  > & {
-    'game.id': number;
-    'word.id': number;
-    'guess.id': number;
-    'guess.created_at': Date;
-    'game.created_at': Date;
-  };
+  interface GameWordAndGuessesQuery {
+    word: string;
+    guess: string;
+    guessed_correctly: boolean;
+    game_id: number;
+    guess_id: number;
+    guess_created_at: Date;
+  }
 
   // the only changing element in the array is the guess - word and game data will be the same for all of them
   // each element in the array represents a guess
   const gameWordAndGuesses = await db.any<GameWordAndGuessesQuery>(
-    `SELECT *
+    `SELECT word, guess, guessed_correctly, game_id, guess, guess.id as guess_id, guess.created_at AS guess_created_at
      FROM games game
               JOIN words word ON game.word_id = word.id
               JOIN guesses guess ON guess.game_id = game.id -- Join instead of left join since we know at least one guess exists from /start
@@ -185,9 +185,9 @@ router.post<FollowUpRequest, GuessResponse>('/guess', async (req, res) => {
 
   const guesses = gameWordAndGuesses.map<Guess>(data => ({
     guess: data.guess,
-    id: data['guess.id'],
-    created_at: data['guess.created_at'],
-    game_id: data['game.id']
+    id: data.guess_id,
+    created_at: data.guess_created_at,
+    game_id: data.game_id
   }));
 
   // if user has already tried this guess, return 400
@@ -222,10 +222,7 @@ router.post<FollowUpRequest, GuessResponse>('/guess', async (req, res) => {
     canKeepGuessing: !won && guesses.length < 6,
     won,
     currentPoints: 6 - guesses.length + 1, // +1 since if the user won at the second guess, they get 5 points and so on
-    guesses: [
-      ...getAllGuessesFeedback(guesses),
-      getGuessFeedback({ word: winningWord, guess })
-    ]
+    guesses: getAllGuessesFeedback(guesses, winningWord)
   });
 });
 
