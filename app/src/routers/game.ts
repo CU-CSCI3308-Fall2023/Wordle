@@ -221,7 +221,7 @@ router.post<FollowUpRequest, GuessResponse>('/guess', async (req, res) => {
     remainingGuesses: won ? 0 : 6 - guesses.length,
     canKeepGuessing: !won && guesses.length < 6,
     won,
-    currentPoints: 6 - guesses.length + 1, // +1 since if the user won at the second guess, they get 5 points and so on
+    currentPoints: 6 - guesses.length + (won ? 1 : 0), // +1 since if the user won at the second guess, they get 5 points and so on
     guesses: getAllGuessesFeedback(guesses, winningWord)
   });
 });

@@ -215,7 +215,7 @@ describe('GameRouter', () => {
             remainingGuesses: 4,
             canKeepGuessing: true,
             won: false,
-            currentPoints: 5,
+            currentPoints: 4,
             guesses: [
               'wrong'.split('').map((letter, index) => ({
                 letter,
