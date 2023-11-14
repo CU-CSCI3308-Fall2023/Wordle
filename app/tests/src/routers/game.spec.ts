@@ -73,7 +73,7 @@ describe('GameRouter', () => {
     it('should return the correct response if the first guess is correct', done => {
       agent
         .post('/game/start')
-        .send({ guess: 'tests' })
+        .send({ guess: 'right' })
         .end((err, res) => {
           expect(res).to.have.status(200);
           expect(res.body).to.deep.equal({
@@ -113,8 +113,8 @@ describe('GameRouter', () => {
                 letter,
                 index,
                 guess: 'wrong',
-                isInWord: false,
-                isInCorrectPosition: false
+                isInWord: 'right'.includes(letter),
+                isInCorrectPosition: 'right'[index] === letter
               }))
             ]
           });
