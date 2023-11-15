@@ -29,6 +29,10 @@ app.use(
 // all routes after this middleware require authentication
 app.use(auth);
 
+app.get('/how-to-play', async (req, res) => {
+  res.render('views/instructions');
+});
+
 export const server = app.listen(3000, () => {
   console.log('Listening on port 3000');
 });
