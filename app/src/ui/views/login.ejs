@@ -1,12 +1,20 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-</head>
-<body>
-<%- include('../partials/header.ejs')%>
-<h1>Test</h1>
-</body>
-</html>
+<%- include ('../partials/header') %>
+    <%- include ('../partials/nav-bar') %>
+        <main>
+            <h1>Log In:</h1>
+            <div class="container">
+                <form action="/login" method="POST">
+                    <label for="username">Username:</label>
+                    <input id="username" name="username" />
+
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" />
+
+                    <input type="submit" value="Login" />
+                </form>
+            </div>
+            <p>New User? <a href="/signup">Sign up here</a> </p>
+
+        </main>
+
+        <%- include ('../partials/footer') %>

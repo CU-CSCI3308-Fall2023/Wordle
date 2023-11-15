@@ -28,7 +28,12 @@ app.use(
 
 // all routes after this middleware require authentication
 app.use(auth);
-
+app.get('/', async (req, res) => {
+  res.render('views/login.ejs');
+});
+app.get('/', async (req, res) => {
+  res.render('views/login.ejs');
+});
 app.get('/how-to-play', async (req, res) => {
   res.render('views/instructions');
 });
