@@ -8,6 +8,12 @@ When the user opens the application, they will be prompted to log in. If they do
 * Password 
 Once the user inputs this information, they will be redirected to the login page where they can now log in with their new account. The information received when a user registers is stored in the users table of the wordle database. The only time the application should allow the user to register a new account is when the user enters a username that does not already exist in the database. The username and password must both be strings.
 
+Feature | Test Cases | Acceptance Criteria | Test Data | Test Environment | Test Results |
+--- | --- | --- | --- | --- | --- |
+Login |   |   |   |   |   |
+Register |   |   |   |   |   |
+Scoreboard |   |   |   |   |   |
+
 Test cases for Register:
 
 * Return 400 if:
