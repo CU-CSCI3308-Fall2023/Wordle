@@ -1,5 +1,13 @@
 # User Acceptance Testing (Lab 11)
 
+## 3 Features: Register, Login, & Scoreboard
+
+Feature | Test Cases/Test Data | Acceptance Criteria | Test Type | Test Results |
+--- | --- | --- | --- | --- |
+Register | <ul><li>User is not able to register with existing credentials</li><li>User is able to register with new credentials</li><li>Missing username</li><li>Missing password</li><li>Missing username and password</li><li>Username is not a string</li><li>Password is not a string</li></ul>  | A user can register if and only if they enter a username that does not already exist in the <code>users</code> table of the <code>wordle</code> database. They must also enter a password, and both of these inputs must be strings. The newly registered username and password will be stored in the <code>users</code> table. | Automated Unit Testing  | <ul><li>Return successful 200 response if first test case passes</li><li>Return 409 error if first test case fails</li><li>Return 400 error if any of the remaining 6 test cases fail</li></ul>  |
+Login | <ul><li>User is able to login with correct credentials</li><li>User is not able to login with incorrect credentials</li><li>Missing username</li><li>Missing password</li><li>Missing username and password</li><li>Username is not a string</li><li>Password is not a string</li></ul>  | A user cannot Login unless they enter a string username and the corresponding string password that exist in the <code>users</code> table of the <code>wordle</code> database.  | Automated Unit Testing  | <ul><li>Return successful 200 response if first test case passes</li><li>Return 409 error if second test case fails</li><li>Return 400 error if any of the remaining 5 test cases fail</li></ul>  |
+Scoreboard | <ul><li>Scoreboard correctly displays a descending leaderboard of players that include information on their average guesses per game and their all time points</li><li>Displays user's username</li><li>Scoreboard displays the individual user's position on the leaderboard</li><li>Displays the individual user's accumulated points across all games played</li><li>Displays individual user's average guesses per game</li><li>Displays total number of games played by user</li></ul>  | After winning or losing a game, the user should see the scoreboard. The scoreboard will display username, score for most recently played game, average points per game, number of games played, total points, and ranking for each player. All data needed for the scoreboard are from the <code>guesses</code> and <code>users</code> tables in the <code>wordle</code> database.  | Automated Unit Testing  | <ul><li>Return 200 OK response if all test cases pass</li><li>Return 500 Internal Server Error response if all test cases fail</li></ul>  |
+
 
 ## UAT Plan for Register Feature
 
@@ -37,7 +45,7 @@ Test cases for Login:
     * both username and password are missing
     * username is not a string
     * password is not a string
-
+      
 
 ## UAT Plan for Scoreboard Feature
 
@@ -52,5 +60,4 @@ The scoreboard should also show that specific user’s all time stats which incl
 * Their average points/guesses per game
 * The total number of games played
 Information about the user’s guesses are pulled from the guesses table, and information about the user’s score is pulled from the games table, both of which are in the Wordle database.
-
 
