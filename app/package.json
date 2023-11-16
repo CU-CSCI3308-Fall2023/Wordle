@@ -5,7 +5,8 @@
   "main": "src/index.js",
   "scripts": {
     "start": "nodemon src/index.ts",
-    "pretest": "npm ci",
+    "pretest:docker": "npm ci",
+    "test:docker": "mocha --require ts-node/register tests/**/*.spec.ts",
     "test": "mocha --require ts-node/register tests/**/*.spec.ts",
     "prebuild": "rimraf dist",
     "build": "tsc --project tsconfig.build.json",

@@ -18,10 +18,17 @@ DROP TABLE IF EXISTS games;
 CREATE TABLE games
 (
     id                SERIAL PRIMARY KEY,
-    user_id           INTEGER NOT NULL REFERENCES users (id),
+    user_id           INTEGER NOT NULL REFERENCES users (id) ON DELETE CASCADE,
     word_id           INTEGER NOT NULL REFERENCES words (id),
     guessed_correctly BOOLEAN   DEFAULT FALSE,
     created_at        TIMESTAMP DEFAULT NOW()
-)
+);
 
-
+DROP TABLE IF EXISTS guesses;
+CREATE TABLE guesses
+(
+    id         SERIAL PRIMARY KEY,
+    game_id    INTEGER NOT NULL REFERENCES games (id) ON DELETE CASCADE,
+    guess      CHAR(5) NOT NULL,
+    created_at TIMESTAMP DEFAULT NOW()
+);

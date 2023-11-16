@@ -18,7 +18,7 @@ services:
         image: node:lts
         working_dir: /app-test
         env_file: .env
-        entrypoint: ["npm", "run", "test"]
+        entrypoint: ["npm", "run", "test:docker"]
         environment:
           - NODE_ENV=test
           - POSTGRES_HOST=db-test
