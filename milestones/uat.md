@@ -8,12 +8,6 @@ When the user opens the application, they will be prompted to log in. If they do
 * Password 
 Once the user inputs this information, they will be redirected to the login page where they can now log in with their new account. The information received when a user registers is stored in the users table of the wordle database. The only time the application should allow the user to register a new account is when the user enters a username that does not already exist in the database. The username and password must both be strings.
 
-Feature | Test Cases | Acceptance Criteria | Test Data | Test Environment | Test Results |
---- | --- | --- | --- | --- | --- |
-Login |   |   |   |   |   |
-Register |   |   |   |   |   |
-Scoreboard |   |   |   |   |   |
-
 Test cases for Register:
 
 * Return 400 if:
@@ -25,6 +19,10 @@ Test cases for Register:
 
 * Return 409 if:
     * user attempts to register with an existing username
+
+Feature | Test Cases | Acceptance Criteria | Test Data | Test Environment | Test Results |
+--- | --- | --- | --- | --- | --- |
+Register |   |   |   |   |   |
 
 
 ## UAT Plan for Login Feature
@@ -44,6 +42,10 @@ Test cases for Login:
     * username is not a string
     * password is not a string
 
+ Feature | Test Cases | Acceptance Criteria | Test Data | Test Environment | Test Results |
+--- | --- | --- | --- | --- | --- |
+Login |   |   |   |   |   |
+
 
 ## UAT Plan for Scoreboard Feature
 
@@ -58,5 +60,9 @@ The scoreboard should also show that specific user’s all time stats which incl
 * Their average points/guesses per game
 * The total number of games played
 Information about the user’s guesses are pulled from the guesses table, and information about the user’s score is pulled from the games table, both of which are in the Wordle database.
+
+Feature | Test Cases | Acceptance Criteria | Test Data | Test Environment | Test Results |
+--- | --- | --- | --- | --- | --- |
+Scoreboard |   |   |   |   |   |
 
 
