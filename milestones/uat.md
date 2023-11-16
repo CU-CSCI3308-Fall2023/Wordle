@@ -1,5 +1,13 @@
 # User Acceptance Testing (Lab 11)
 
+## 3 Features: Register, Login, & Scoreboard
+
+Feature | Test Cases | Acceptance Criteria | Test Data | Test Environment | Test Results |
+--- | --- | --- | --- | --- | --- |
+Login |   |   |   |   |   |
+Register |   |   |   |   |   |
+Scoreboard |   |   |   |   |   |
+
 
 ## UAT Plan for Register Feature
 
@@ -20,10 +28,6 @@ Test cases for Register:
 * Return 409 if:
     * user attempts to register with an existing username
 
-Feature | Test Cases | Acceptance Criteria | Test Data | Test Environment | Test Results |
---- | --- | --- | --- | --- | --- |
-Register |   |   |   |   |   |
-
 
 ## UAT Plan for Login Feature
 
@@ -41,11 +45,7 @@ Test cases for Login:
     * both username and password are missing
     * username is not a string
     * password is not a string
-
- Feature | Test Cases | Acceptance Criteria | Test Data | Test Environment | Test Results |
---- | --- | --- | --- | --- | --- |
-Login |   |   |   |   |   |
-
+      
 
 ## UAT Plan for Scoreboard Feature
 
@@ -60,9 +60,4 @@ The scoreboard should also show that specific user’s all time stats which incl
 * Their average points/guesses per game
 * The total number of games played
 Information about the user’s guesses are pulled from the guesses table, and information about the user’s score is pulled from the games table, both of which are in the Wordle database.
-
-Feature | Test Cases | Acceptance Criteria | Test Data | Test Environment | Test Results |
---- | --- | --- | --- | --- | --- |
-Scoreboard |   |   |   |   |   |
-
 
