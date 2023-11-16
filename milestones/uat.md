@@ -5,9 +5,7 @@
 Feature | Test Cases | Acceptance Criteria | Test Data | Test Environment | Test Results |
 --- | --- | --- | --- | --- | --- |
 Register | <ul><li>Missing username</li><li>Missing password</li><li>Missing username and password</li><li>Username is not a string</li><li>Password is not a string</li></ul>  | A user can register if and only if they enter a username that does not already exist in the <code>users</code> table of the <code>wordle</code> database. They must also enter a password, and both of these inputs must be strings. The newly registered username and password will be stored in the <code>users</code> table. |   |   |   |
-
 Login | <ul><li>Missing username</li><li>Missing password</li><li>Missing username and password</li><li>Username is not a string</li><li>Password is not a string</li></ul>  | A user cannot Login unless they enter a username and the corresponding password that exist in the <code>users</code> table of the <code>wordle</code> database.  |   |   |   |
-
 Scoreboard |   | After winning or losing a game, the user should see the scoreboard. The scoreboard will display username, score for most recently played game, average points per game, number of games played, total points, and ranking for each player. All data needed for the scoreboard are from the <code>guesses</code> and <code>users</code> tables in the <code>wordle</code> database.  |   |   |   |
 
 
