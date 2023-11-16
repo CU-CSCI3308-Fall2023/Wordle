@@ -4,7 +4,7 @@
 
 Feature | Test Cases | Acceptance Criteria | Test Data | Test Environment | Test Results |
 --- | --- | --- | --- | --- | --- |
-Login |   |   |   |   |   |
+Login |   |   |   | A player cannot Login unless they enter a username that exists in the <code>users</code> table of the wordle database and the corresponding password for that username.  |   |
 Register |   |   |   |   |   |
 Scoreboard |   |   |   |   |   |
 
