@@ -6,11 +6,14 @@ import { User } from '../types';
 
 const router = express.Router();
 
+
 router.get('/login', async (req, res) => {
   res.render('views/login');
 });
 
-router.get('/signup', async (req, res) => { }); g
+router.get('/signup', async (req, res) => {
+  res.render('views/register');
+});
 
 router.post('/login', async (req, res) => {
   const { username, password } = req.body;
@@ -37,7 +40,7 @@ router.post('/login', async (req, res) => {
 
     req.session.user = user;
     req.session.save();
-    res.redirect('/');
+    res.redirect('/how-to-play');
   } catch (error: unknown) {
     res.status(500).end();
   }
@@ -82,6 +85,14 @@ router.use((req, res, next) => {
     res.redirect('/login');
   }
   next();
+});
+
+router.get("/logout", (req, res) => {
+  // @ts-ignore No CB needed
+  req.session.destroy();
+  //req.session.save();
+  //req.session.user = undefined;
+  res.redirect("/login");
 });
 
 export default router;
