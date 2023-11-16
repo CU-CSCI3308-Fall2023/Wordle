@@ -4,8 +4,8 @@
 
 Feature | Test Cases | Acceptance Criteria | Test Data | Test Environment | Test Results |
 --- | --- | --- | --- | --- | --- |
-Login |   |   |   | A player cannot Login unless they enter a username that exists in the <code>users</code> table of the wordle database and the corresponding password for that username.  |   |
-Register |   |   |   |   |   |
+Register |   | A user can register if and only if they enter a username that does not already exist in the <code>users</code> table of the <code>wordle</code> database. They must also enter a password. The newly registered username and password will be stored in the <code>users</code> table. |   |   |   |
+Login |   | A user cannot Login unless they enter a username that exists in the <code>users</code> table of the <code>wordle</code> database and the corresponding password for that username.  |   |   |   |
 Scoreboard |   |   |   |   |   |
 
 
