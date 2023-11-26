@@ -1,28 +1,86 @@
-<header>
-    <nav class="navbar navbar-expand-sm border-bottom">
-        <div class="container">
-            <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbar-collapse" aria-controls="navbar" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Navbar</title>
+    <link rel="stylesheet" href="../styles/nav-bar.css">
+  </head>
+  <body>
+    <header>
+        <img class="logo" src="https://1000logos.net/wp-content/uploads/2023/05/Wordle-Emblem.png" alt="logo" style="height: 120px">
+        <nav>
+            <ul class="nav_links">
+                <li><a href="/how-to-play">How To Play</a></li>
+                <li><a href="/login">Login</a></li>
+                <li><a href="/stats">Stats</a></li>
+                <a class="cta" href="/logout"><button>Logout</button></a>
+            </ul>
+            
+        </nav>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Arimo:wght@500&display=swap');
 
-            <div class="collapse navbar-collapse" id="navbar-collapse">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/how-to-play"> How To Play</a>
-                    </li>
-                </ul>
-                <div class="nav-item me-1">
-                    <a class="nav-link" href="/logout">Log Out</a>
-                </div>
-                <div class="nav-item me-2">
-                    <a class="nav-link" href="/login">Log In/Register</a>
-                </div>
-                <div class="nav-item me-3">
-                    <a class="nav-link" href="/stats">Stats/Scoreboard</a>
-                </div>
-            </div>
-        </div>
-    </nav>
-</header>
+            /* Reset default styles for all elements */
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            /* Apply styles only to elements inside the header */
+            header {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+                align-items: center;
+                background-color: #262626;
+                padding: 0px 9%;
+                border-bottom: 1000px blue;
+            }
+
+            header .nav_links li,
+            header .nav_links a,
+            header .cta button {
+                font-family: "Arimo", sans-serif;
+                font-weight: 500;
+                font-size: 20px;
+                color: white;
+                text-decoration: none;
+            }
+
+            .nav_links {
+                list-style: none;
+            }
+
+            .nav_links li {
+                display: inline-block;
+                padding: 0px 20px;
+            }
+
+            .nav_links li a {
+                transition: all 0.3s ease 0s;
+            }
+
+            .nav_links li a:hover {
+                color: #8ede7c;
+            }
+
+            button {
+                margin-left: 20px;
+                padding: 9px 25px;
+                background-color: rgb(255,196,37,1);
+                border: none;
+                border-radius: 50px;
+                cursor: pointer;
+                transition: all 0.3s ease 0s;
+            }
+
+            button:hover {
+                background-color: rgba(255,196,37,0.85);
+            }
+        </style>
+    </header>
+  </body>
+</html>
