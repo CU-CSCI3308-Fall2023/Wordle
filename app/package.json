@@ -5,11 +5,12 @@
   "main": "src/index.js",
   "scripts": {
     "start": "nodemon src/index.ts",
-    "pretest": "npm ci",
+    "pretest:docker": "npm ci",
+    "test:docker": "mocha --require ts-node/register tests/**/*.spec.ts",
     "test": "mocha --require ts-node/register tests/**/*.spec.ts",
     "prebuild": "rimraf dist",
     "build": "tsc --project tsconfig.build.json",
-    "postbuild": "copyfiles -u 1 \"src/ui/**/*\" dist"
+    "postbuild": "copyfiles -u 1 \"src/ui/**/*\" dist && copyfiles -u 1 \"src/public/**/*\" dist"
   },
   "engines": {
     "node": "lts/*"
@@ -53,8 +54,5 @@
     "simple-git-hooks": "^2.9.0",
     "ts-node": "^10.9.1",
     "typescript": "^5.2.2"
-  },
-  "simple-git-hooks": {
-    "pre-commit": "npx lint-staged"
   }
 }
