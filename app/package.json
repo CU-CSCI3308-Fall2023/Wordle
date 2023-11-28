@@ -10,7 +10,7 @@
     "test": "mocha --require ts-node/register tests/**/*.spec.ts",
     "prebuild": "rimraf dist",
     "build": "tsc --project tsconfig.build.json",
-    "postbuild": "copyfiles -u 1 \"src/ui/**/*\" dist"
+    "postbuild": "copyfiles -u 1 \"src/ui/**/*\" dist && copyfiles -u 1 \"src/public/**/*\" dist"
   },
   "engines": {
     "node": "lts/*"
