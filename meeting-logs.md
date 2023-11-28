@@ -37,7 +37,7 @@
 
 1. Discussed needed updates for UAT doc for Lab 11.
 2. Reviewed the Entity-Relationship Diagram for DB and test cases for lab 11.
-4. Discussed next steps.
+3. Discussed next steps.
 
 ## Wednesday 11/29 4:45 pm CSEL
 
