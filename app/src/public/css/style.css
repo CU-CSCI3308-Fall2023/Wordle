@@ -1,0 +1,14 @@
+.board {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 20vw;
+    height: 50vh;
+}
+
+.space {
+    background-color: black;
+    height: 10px;
+    width: 10px;
+}
