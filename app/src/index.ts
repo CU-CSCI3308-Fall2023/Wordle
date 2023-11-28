@@ -12,7 +12,7 @@ import scoreboard from "./routers/scoreboard";
 
 const app = express();
 
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, "public")));
 
 app.set("views", path.join(__dirname, "ui"));
 app.set("view engine", "ejs");
