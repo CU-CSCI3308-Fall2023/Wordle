@@ -28,6 +28,8 @@ app.use(
   })
 );
 
+app.use(express.static(path.join(__dirname, 'public')));
+
 // all routes after this middleware require authentication
 app.use(auth);
 app.use('/game', game);
