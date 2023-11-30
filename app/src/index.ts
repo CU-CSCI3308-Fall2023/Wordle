@@ -36,11 +36,7 @@ app.use('/game', game);
 app.use('/scoreboard', scoreboard);
 
 app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
-
-app.get('/', async (req, res) => {
-  res.render('views/login.ejs');
+  res.redirect('/how-to-play');
 });
 
 app.get('/login', async (req, res) => {
