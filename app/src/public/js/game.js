@@ -1,3 +1,6 @@
+// Imports
+const axios = require("axios");
+
 // Global Variables
 const keyboard = document.getElementById("keyboard");
 const keyboardKeys = keyboard.querySelectorAll("button");
@@ -26,7 +29,12 @@ keyboardKeys.forEach((element) => {
             renderBoard();
         } else if (element.className === "enter") {
             if (currentWord.length === 5) {
-                // Build a javascript object using the current string and make a post request to game.ts
+                const request = {
+                    gueass: currentWord,
+                };
+
+                axios.post("/game/start", request).then((response) => {});
+
                 currentRow += 1;
                 currentWord = "";
             }
