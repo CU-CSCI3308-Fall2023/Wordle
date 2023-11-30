@@ -6,7 +6,6 @@ import { User } from '../types';
 
 const router = express.Router();
 
-
 router.get('/login', async (req, res) => {
   res.render('views/login');
 });
@@ -87,12 +86,12 @@ router.use((req, res, next) => {
   next();
 });
 
-router.get("/logout", (req, res) => {
+router.get('/logout', (req, res) => {
   // @ts-ignore No CB needed
   req.session.destroy();
   //req.session.save();
   //req.session.user = undefined;
-  res.redirect("/login");
+  res.redirect('/login');
 });
 
 export default router;
