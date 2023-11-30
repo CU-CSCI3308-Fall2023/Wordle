@@ -4,6 +4,7 @@ const keyboardKeys = keyboard.querySelectorAll("button");
 let currentWord = "";
 let currentRow = 0;
 
+// Functions
 const renderBoard = () => {
     const row = document.getElementById(`row-${currentRow}`);
     const values = row.querySelectorAll("p");
@@ -17,6 +18,7 @@ const renderBoard = () => {
     });
 };
 
+// Event Listeners
 keyboardKeys.forEach((element) => {
     element.addEventListener("click", () => {
         if (element.className === "delete") {
