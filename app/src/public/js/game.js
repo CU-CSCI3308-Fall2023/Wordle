@@ -23,10 +23,11 @@ keyboardKeys.forEach((element) => {
             currentWord = currentWord.slice(0, -1);
             renderBoard();
         } else if (element.className === "enter") {
-            console.log("test");
-            // Check if currentWord is 5 characters long
-            // Build a javascript object using the current string and make a post request to game.ts
-            // increment currentRow
+            if (currentWord.length === 5) {
+                // Build a javascript object using the current string and make a post request to game.ts
+                currentRow += 1;
+                currentWord = "";
+            }
         } else {
             if (currentWord.length < 5) {
                 currentWord += element.innerHTML;
