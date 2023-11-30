@@ -41,4 +41,9 @@
 
 ## Wednesday 11/29 4:45 pm CSEL
 
+1. Discussed final steps of project.
+2. Reviewed what code still needs to be completed.
+3. Asked some questions regarding unit tests.
+4. Finalized presentation time and plans for next meeting: show Shipra our working application during the next meeting (12/06)
+
 ## Wednesday 12/06, 4:45 pm CSEL
