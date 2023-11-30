@@ -14,18 +14,36 @@
 
 ## Tuesday 11/14 1:00 pm CSEL
 
-## Tuesday 11/21 1:00 pm CSEL
-
--   Need to reschedule because this is during fall break
+1. Discussed project updates and updated the Project Board on GitHub.
+2. Delegated more user stories. 
 
 ## Tuesday 11/28 1:00 pm CSEL
+
+1. Fixed a couple merge conflicts.
+2. Discussed game.js file and how to go about making interactive keyboard and game board.
+3. Reviewed the html and css for login and register pages.
+4. Worked on the html and css for the game board and keyboard.
+5. Discussed next steps and final goals for the project.
 
 # TA Meetings
 
 ## Friday 11/10 4:30 CSEL
 
+1. Reviewed where we are at in the project.
+2. Discussed updating the project board.
+3. Discussed our project plan and meeting plans.
+
 ## Wednesday 11/15 4:45 pm CSEL
 
+1. Discussed needed updates for UAT doc for Lab 11.
+2. Reviewed the Entity-Relationship Diagram for DB and test cases for lab 11.
+3. Discussed next steps.
+
 ## Wednesday 11/29 4:45 pm CSEL
+
+1. Discussed final steps of project.
+2. Reviewed what code still needs to be completed.
+3. Asked some questions regarding unit tests.
+4. Finalized presentation time and plans for next meeting: show Shipra our working application during the next meeting (12/06)
 
 ## Wednesday 12/06, 4:45 pm CSEL
