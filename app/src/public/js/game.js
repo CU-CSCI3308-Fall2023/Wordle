@@ -95,6 +95,8 @@ document
       response = await addGuessToGame(guess);
     }
 
+    updateBoardColors(response);
+
     if (response.canKeepGuessing) {
       guesses.push(''); // jump to next row
     }
@@ -109,7 +111,7 @@ document
  * @param guess {string} Guess to be used to start a new game
  * @return {Promise<GuessResponse>}
  */
-async function startNewGame(guess) {
+function startNewGame(guess) {
   return axios.post('/game/start', { guess }).then(res => res.data);
 }
 
@@ -123,4 +125,32 @@ function addGuessToGame(guess) {
   }
 
   return axios.post('/game/guess', { gameId, guess }).then(res => res.data);
+}
+
+/**
+ * Update the colors on the board based on the current guesses. This will re-render all the elements on the board.
+ * @param game {GuessResponse}
+ */
+function updateBoardColors(game) {
+  for (let i = 0; i < game.guesses.length; i++) {
+    const row = document.querySelector(`#row-${i}`);
+    const cols = row.querySelectorAll(`.board-col`);
+
+    for (let j = 0; j < game.guesses[i].length; j++) {
+      const col = cols[j];
+      const guess = game.guesses[i][j];
+
+      if (guess.isInWord) {
+        col.classList.add('correct-letter');
+      } else {
+        col.classList.remove('correct-letter');
+      }
+
+      if (guess.isInCorrectPosition) {
+        col.classList.add('correct-position');
+      } else {
+        col.classList.remove('correct-position');
+      }
+    }
+  }
 }

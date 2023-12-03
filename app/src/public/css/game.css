@@ -28,6 +28,14 @@
     align-items: center;
 }
 
+.board-col.correct-letter {
+    background-color: #c9b457;
+}
+
+.board-col.correct-position {
+    background-color: #6baa65;
+}
+
 .square {
     font-size: 2rem;
     font-weight: bold;
