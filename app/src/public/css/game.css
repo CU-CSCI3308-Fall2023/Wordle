@@ -28,12 +28,16 @@
     align-items: center;
 }
 
-.board-col.correct-letter {
-    background-color: #c9b457;
+.incorrect-letter {
+    background-color: #939393 !important;
 }
 
-.board-col.correct-position {
-    background-color: #6baa65;
+.correct-letter {
+    background-color: #c9b457 !important;
+}
+
+.correct-position {
+    background-color: #6baa65 !important;
 }
 
 .square {

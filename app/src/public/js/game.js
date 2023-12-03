@@ -95,16 +95,12 @@ document
       response = await addGuessToGame(guess);
     }
 
-    updateBoardColors(response);
-
     if (response.canKeepGuessing) {
       guesses.push(''); // jump to next row
     }
 
-    // TODO:
-    //  - Change colors on the board
-    //  - Change colors on the interactive
-    //  - Disable keys accordingly
+    updateBoardColors(response);
+    updateKeyboard(response);
   });
 
 /**
@@ -128,7 +124,7 @@ function addGuessToGame(guess) {
 }
 
 /**
- * Update the colors on the board based on the current guesses. This will re-render all the elements on the board.
+ * Update the colors on the board based on the current guesses.
  * @param game {GuessResponse}
  */
 function updateBoardColors(game) {
@@ -142,15 +138,51 @@ function updateBoardColors(game) {
 
       if (guess.isInWord) {
         col.classList.add('correct-letter');
-      } else {
-        col.classList.remove('correct-letter');
-      }
-
-      if (guess.isInCorrectPosition) {
+      } else if (guess.isInCorrectPosition) {
         col.classList.add('correct-position');
       } else {
-        col.classList.remove('correct-position');
+        col.classList.add('incorrect-letter');
       }
+    }
+  }
+}
+
+/**
+ * Update the keyboard based on the current state of the game.
+ * @param {GuessResponse} game
+ */
+function updateKeyboard(game) {
+  const letters = document.querySelectorAll('#keyboard button.btn');
+
+  if (!game.canKeepGuessing) {
+    letters.forEach(letter => (letter.disabled = true));
+    return;
+  }
+
+  const lettersInWord = game.guesses
+    .flat()
+    .filter(guess => guess.isInWord && !guess.isInCorrectPosition)
+    .map(guess => guess.letter);
+
+  const lettersInCorrectPosition = game.guesses
+    .flat()
+    .filter(guess => guess.isInCorrectPosition)
+    .map(guess => guess.letter);
+
+  const wrongLetters = game.guesses
+    .flat()
+    .filter(guess => !guess.isInWord && !guess.isInCorrectPosition)
+    .map(guess => guess.letter);
+
+  for (const el of letters) {
+    const letter = el.innerHTML;
+
+    if (lettersInWord.includes(letter)) {
+      el.classList.add('correct-letter');
+    } else if (lettersInCorrectPosition.includes(letter)) {
+      el.classList.add('correct-position');
+    } else if (wrongLetters.includes(letter)) {
+      el.classList.add('incorrect-letter');
     }
   }
 }
