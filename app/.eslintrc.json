@@ -44,9 +44,6 @@
       "env": {
         "browser": true,
         "node": false
-      },
-      "globals": {
-        "axios": "readonly"
       }
     }
   ]

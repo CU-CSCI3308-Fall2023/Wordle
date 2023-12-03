@@ -108,7 +108,13 @@ document
  * @return {Promise<GuessResponse>}
  */
 function startNewGame(guess) {
-  return axios.post('/game/start', { guess }).then(res => res.data);
+  return fetch('/game/start', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ guess })
+  }).then(res => res.json());
 }
 
 /**
@@ -120,7 +126,13 @@ function addGuessToGame(guess) {
     throw new Error('gameId is undefined');
   }
 
-  return axios.post('/game/guess', { gameId, guess }).then(res => res.data);
+  return fetch('/game/guess', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ gameId, guess })
+  }).then(res => res.json());
 }
 
 /**
