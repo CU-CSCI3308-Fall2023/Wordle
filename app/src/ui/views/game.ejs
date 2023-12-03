@@ -4,14 +4,7 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <link rel="stylesheet" href="/css/game.css" type="text/css" />
 
-<section id="play-page">
-    <input type='text' hidden readonly id='game-id'>
-    <input type='text' hidden readonly id='guess-0'>
-    <input type='text' hidden readonly id='guess-1'>
-    <input type='text' hidden readonly id='guess-2'>
-    <input type='text' hidden readonly id='guess-3'>
-    <input type='text' hidden readonly id='guess-4'>
-
+<main id="play-page">
     <!-- Game Board -->
     <div id="board">
         <div id="row-0" class="board-row">
@@ -155,6 +148,6 @@
             <button class="enter">Enter</button>
         </div>
     </div>
-</section>
+</main>
 
 <%- include ('../partials/footer') %>

@@ -1,42 +1,72 @@
-const keyboard = document.getElementById('keyboard');
-const keyboardKeys = keyboard.querySelectorAll('button');
-let currentWord = '';
-let currentRow = 0;
+/**
+ * @type {string[]}
+ */
+const guesses = [];
 
-const renderBoard = () => {
-  const row = document.getElementById(`row-${currentRow}`);
-  const values = row.querySelectorAll('p');
-  const upperCaseWord = currentWord.toUpperCase();
+/**
+ * Handle the key press on the interactive keyboard
+ * @param event {MouseEvent<HTMLButtonElement>} Key pressed on the interactive keyboard
+ */
+function handleInteractiveKeyPress(event) {
+  const rowIdx = Math.max(guesses.length - 1, 0);
 
-  values.forEach((element, index) => {
-    element.innerHTML = '';
-    if (index < upperCaseWord.length) {
-      element.innerHTML = upperCaseWord[index];
-    }
-  });
-};
+  const guess = guesses[rowIdx];
+  if (guess === undefined) {
+    guesses[rowIdx] = event.target.innerHTML;
+  } else if (guess.length < 5) {
+    guesses[rowIdx] += event.target.innerHTML;
+  } else {
+    return;
+  }
 
-keyboardKeys.forEach(element => {
-  element.addEventListener('click', () => {
-    if (element.className === 'delete') {
-      currentWord = currentWord.slice(0, -1);
-      renderBoard();
-    } else if (element.className === 'enter') {
-      if (currentWord.length === 5) {
-        const request = {
-          gueass: currentWord
-        };
+  const colIdx = Math.max(guesses[rowIdx].length - 1, 0);
 
-        axios.post('/game/start', request).then(response => {});
+  const row = document.querySelector(`#row-${rowIdx}`);
+  const col = row.querySelectorAll(`.board-col p`)[colIdx];
 
-        currentRow += 1;
-        currentWord = '';
-      }
-    } else {
-      if (currentWord.length < 5) {
-        currentWord += element.innerHTML;
-        renderBoard();
-      }
-    }
-  });
+  col.innerHTML = event.target.innerHTML;
+}
+
+document.querySelectorAll('#keyboard button.btn').forEach(el => {
+  el.addEventListener('click', handleInteractiveKeyPress);
 });
+
+/**
+ * Handle delete key press on the interactive keyboard
+ */
+document
+  .querySelector('#keyboard button.delete')
+  .addEventListener('click', () => {
+    const rowIdx = Math.max(guesses.length - 1, 0);
+    const colIdx = Math.max(guesses[rowIdx].length - 1, 0);
+
+    const row = document.querySelector(`#row-${rowIdx}`);
+    const col = row.querySelectorAll(`.board-col p`)[colIdx];
+
+    col.innerHTML = '';
+
+    guesses[rowIdx] = guesses[rowIdx].slice(0, -1);
+  });
+
+/**
+ * Handle enter key press on the interactive keyboard
+ */
+document
+  .querySelector('#keyboard button.enter')
+  .addEventListener('click', async () => {
+    const guess = guesses[guesses.length - 1];
+    if (guess?.length !== 5) {
+      return;
+    }
+
+    // TODO: Add typedef here
+    const response = await axios
+      .post('/game/start', { guess })
+      .then(res => res.data);
+
+    // TODO:
+    //  - Change colors on the board
+    //  - Change colors on the interactive
+    //  - Disable keys accordingly
+    console.log(response);
+  });
