@@ -129,19 +129,19 @@ function addGuessToGame(guess) {
  */
 function updateBoardColors(game) {
   for (let i = 0; i < game.guesses.length; i++) {
-    const row = document.querySelector(`#row-${i}`);
-    const cols = row.querySelectorAll(`.board-col`);
+    const squares = document.querySelectorAll(`#row-${i} > .board-col`);
+    const feedback = game.guesses[i];
 
-    for (let j = 0; j < game.guesses[i].length; j++) {
-      const col = cols[j];
-      const guess = game.guesses[i][j];
+    for (let j = 0; j < feedback.length; j++) {
+      const square = squares[j];
+      const guess = feedback[j];
 
-      if (guess.isInWord) {
-        col.classList.add('correct-letter');
-      } else if (guess.isInCorrectPosition) {
-        col.classList.add('correct-position');
+      if (guess.isInCorrectPosition) {
+        square.classList.add('correct-position');
+      } else if (guess.isInWord) {
+        square.classList.add('correct-letter');
       } else {
-        col.classList.add('incorrect-letter');
+        square.classList.add('incorrect-letter');
       }
     }
   }
