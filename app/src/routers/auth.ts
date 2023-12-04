@@ -35,7 +35,8 @@ router.post('/login', async (req, res) => {
 
     if (!user || !(await bcrypt.compare(password, user.password_hash))) {
       return res.render('views/login', {
-        error: 'Wrong password or username'
+        error: 'danger',
+        message: 'Username or password incorrect'
       });
     }
 
@@ -76,7 +77,7 @@ router.post('/signup', async (req, res) => {
     if (error?.code === '23505') {
       return res.render('views/register', {
         error: 'danger',
-        message: 'Username or password incorrect'
+        message: 'Username already exists'
       });
     }
 

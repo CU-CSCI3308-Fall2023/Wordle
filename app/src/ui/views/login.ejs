@@ -17,14 +17,17 @@
                 <i class='bx bxs-lock-alt'></i>
             </div>
             <button type="submit" class="btn">Login</button>
-            <% if (locals.message) { %>
-                <div class="alert alert-<%- locals.error ? 'danger' : 'success' %>" role="alert">
-                    <%= message %>
-                </div>
-                <% } %>
+
         </form>
-        <div class="register-link">
-            <p>Don't have an account? <a href="/signup">Register</a></p>
-        </div>
+        <% if (locals.message) { %>
+            <div class="alert alert-dark" role="alert" style="margin-top: 10px;">
+                <p style="text-align: center;">
+                    <%= message %>
+                </p>
+            </div>
+            <% } %>
+                <div class="register-link">
+                    <p>Don't have an account? <a href="/signup">Register</a></p>
+                </div>
     </div>
     <%- include ('../partials/footer') %>
