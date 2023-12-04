@@ -1,0 +1,45 @@
+<%- include ('../partials/header') %>
+    <%- include ('../partials/nav-bar') %>
+        <link rel="stylesheet" href="/css/stats.css">
+        <main>
+            <div class="wrapper">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Position</th>
+                            <th scope="col">Username</th>
+                            <th scope="col">Total Points</th>
+                            <th scope="col">Games Played</th>
+                            <th scope="col">Average Points Per Game</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% data.forEach(data=> {%>
+                            <tr>
+                                <td>
+                                    <%= data.position %>
+                                </td>
+                                <td>
+                                    <%= data.username%>
+                                </td>
+                                <td class="text">
+                                    <%= data.total_points%>
+                                </td>
+                                <td>
+                                    <%= data.games_played%>
+                                </td>
+                                <td>
+                                    <%= data.avg_points_per_game%>
+                                </td>
+                            </tr>
+
+                            <% })%>
+
+                    </tbody>
+                </table>
+
+            </div>
+        </main>
+
+        <%- include ('../partials/footer') %>

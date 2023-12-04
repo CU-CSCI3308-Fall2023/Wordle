@@ -34,8 +34,9 @@ router.post('/login', async (req, res) => {
     );
 
     if (!user || !(await bcrypt.compare(password, user.password_hash))) {
-      // TODO: Render the login page with an error message
-      return res.status(401).end();
+      return res.render('views/login', {
+        error: 'Wrong password or username'
+      });
     }
 
     req.session.user = user;
@@ -73,7 +74,10 @@ router.post('/signup', async (req, res) => {
   } catch (error: unknown) {
     // @ts-ignore 23505 is the unique_violation error code (username already exists)
     if (error?.code === '23505') {
-      return res.status(409).end();
+      return res.render('views/register', {
+        error: 'danger',
+        message: 'Username or password incorrect'
+      });
     }
 
     res.status(500).end();

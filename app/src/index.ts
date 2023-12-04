@@ -21,11 +21,11 @@ app.use(bodyParser.json());
 app.disable('x-powered-by');
 
 app.use(
-  session({
-    secret: process.env.SESSION_SECRET!,
-    saveUninitialized: false,
-    resave: false
-  })
+    session({
+        secret: process.env.SESSION_SECRET!,
+        saveUninitialized: false,
+        resave: false
+    })
 );
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -36,17 +36,17 @@ app.use('/game', game);
 app.use('/scoreboard', scoreboard);
 
 app.get('/', (req, res) => {
-  res.redirect('/how-to-play');
+    res.redirect('/how-to-play');
 });
 
 app.get('/login', async (req, res) => {
-  res.render('views/login.ejs');
+    res.render('views/login.ejs');
 });
 
 app.get('/how-to-play', async (req, res) => {
-  res.render('views/instructions');
+    res.render('views/instructions');
 });
 
 export const server = app.listen(3000, () => {
-  console.log('Listening on port 3000');
+    console.log('Listening on port 3000');
 });
