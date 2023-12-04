@@ -198,3 +198,19 @@ function updateKeyboard(game) {
     }
   }
 }
+
+// handle physical keyboard events
+document.addEventListener('keyup', event => {
+  if (event.key === 'Enter') {
+    document.querySelector('#keyboard button.enter').click();
+  } else if (event.key === 'Backspace') {
+    document.querySelector('#keyboard button.delete').click();
+  } else if (event.key.match(/[a-z]/i)) {
+    const keys = document.querySelectorAll('#keyboard button.btn');
+    keys.forEach(key => {
+      if (key.innerHTML === event.key) {
+        key.click();
+      }
+    });
+  }
+});
