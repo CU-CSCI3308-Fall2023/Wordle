@@ -1,171 +1,94 @@
-<%- include ('../partials/header') %> <%- include ('../partials/nav-bar') %>
+<%- include ('../partials/header') %>
+    <link rel="stylesheet" href="/css/game.css" type="text/css" />
+    <%- include ('../partials/header') %> <%- include ('../partials/nav-bar') %>
 
-<script src="/js/game.js" defer></script>
-<link rel="stylesheet" href="/css/game.css" type="text/css" />
+            <script src="/js/game.js" defer></script>
+            <link rel="stylesheet" href="/css/game.css" type="text/css" />
 
-<main id="play-page">
-    <!-- Game Board -->
-    <div id="board">
-        <div id="row-0" class="board-row">
-            <div class="board-col">
-                <p class="square"></p>
-            </div>
-            <div class="board-col">
-                <p class="square"></p>
-            </div>
-            <div class="board-col">
-                <p class="square"></p>
-            </div>
-            <div class="board-col">
-                <p class="square"></p>
-            </div>
-            <div class="board-col">
-                <p class="square"></p>
-            </div>
-        </div>
-        <div id="row-1" class="board-row">
-            <div class="board-col">
-                <p class="square"></p>
-            </div>
-            <div class="board-col">
-                <p class="square"></p>
-            </div>
-            <div class="board-col">
-                <p class="square"></p>
-            </div>
-            <div class="board-col">
-                <p class="square"></p>
-            </div>
-            <div class="board-col">
-                <p class="square"></p>
-            </div>
-        </div>
-        <div id="row-2" class="board-row">
-            <div class="board-col">
-                <p class="square"></p>
-            </div>
-            <div class="board-col">
-                <p class="square"></p>
-            </div>
-            <div class="board-col">
-                <p class="square"></p>
-            </div>
-            <div class="board-col">
-                <p class="square"></p>
-            </div>
-            <div class="board-col">
-                <p class="square"></p>
-            </div>
-        </div>
-        <div id="row-3" class="board-row">
-            <div class="board-col">
-                <p class="square"></p>
-            </div>
-            <div class="board-col">
-                <p class="square"></p>
-            </div>
-            <div class="board-col">
-                <p class="square"></p>
-            </div>
-            <div class="board-col">
-                <p class="square"></p>
-            </div>
-            <div class="board-col">
-                <p class="square"></p>
-            </div>
-        </div>
-        <div id="row-4" class="board-row">
-            <div class="board-col">
-                <p class="square"></p>
-            </div>
-            <div class="board-col">
-                <p class="square"></p>
-            </div>
-            <div class="board-col">
-                <p class="square"></p>
-            </div>
-            <div class="board-col">
-                <p class="square"></p>
-            </div>
-            <div class="board-col">
-                <p class="square"></p>
-            </div>
-        </div>
-        <div id="row-5" class="board-row">
-            <div class="board-col">
-                <p class="square"></p>
-            </div>
-            <div class="board-col">
-                <p class="square"></p>
-            </div>
-            <div class="board-col">
-                <p class="square"></p>
-            </div>
-            <div class="board-col">
-                <p class="square"></p>
-            </div>
-            <div class="board-col">
-                <p class="square"></p>
-            </div>
-        </div>
-    </div>
 
-    <!-- Keyboard -->
-    <div id="keyboard">
-        <div class="first-row">
-            <button class="btn">q</button>
-            <button class="btn">w</button>
-            <button class="btn">e</button>
-            <button class="btn">r</button>
-            <button class="btn">t</button>
-            <button class="btn">y</button>
-            <button class="btn">u</button>
-            <button class="btn">i</button>
-            <button class="btn">o</button>
-            <button class="btn">p</button>
-        </div>
-        <div class="second-row">
-            <button class="btn">a</button>
-            <button class="btn">s</button>
-            <button class="btn">d</button>
-            <button class="btn">f</button>
-            <button class="btn">g</button>
-            <button class="btn">h</button>
-            <button class="btn">j</button>
-            <button class="btn">k</button>
-            <button class="btn">l</button>
-        </div>
-        <div class="third-row">
-            <button class="delete">Delete</button>
-            <button class="btn">z</button>
-            <button class="btn">x</button>
-            <button class="btn">c</button>
-            <button class="btn">v</button>
-            <button class="btn">b</button>
-            <button class="btn">n</button>
-            <button class="btn">m</button>
-            <button class="enter">Enter</button>
-        </div>
-    </div>
+            <main>
+                <div id="board">
+                    <div class="board-row">
+                        <div class="board-col"></div>
+                        <div class="board-col"></div>
+                        <div class="board-col"></div>
+                        <div class="board-col"></div>
+                        <div class="board-col"></div>
+                    </div>
+                    <div class="board-row">
+                        <div class="board-col"></div>
+                        <div class="board-col"></div>
+                        <div class="board-col"></div>
+                        <div class="board-col"></div>
+                        <div class="board-col"></div>
+                    </div>
+                    <div class="board-row">
+                        <div class="board-col"></div>
+                        <div class="board-col"></div>
+                        <div class="board-col"></div>
+                        <div class="board-col"></div>
+                        <div class="board-col"></div>
+                    </div>
+                    <div class="board-row">
+                        <div class="board-col"></div>
+                        <div class="board-col"></div>
+                        <div class="board-col"></div>
+                        <div class="board-col"></div>
+                        <div class="board-col"></div>
+                    </div>
+                    <div class="board-row">
+                        <div class="board-col"></div>
+                        <div class="board-col"></div>
+                        <div class="board-col"></div>
+                        <div class="board-col"></div>
+                        <div class="board-col"></div>
+                    </div>
+                    <div class="board-row">
+                        <div class="board-col"></div>
+                        <div class="board-col"></div>
+                        <div class="board-col"></div>
+                        <div class="board-col"></div>
+                        <div class="board-col"></div>
+                    </div>
+                </div>
+                <div id="keyboard">
 
-    <!-- Bootstrap Modal -->
-    <div class="modal" tabindex="-1" role="dialog" id="resultModal">
-        <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Game Over!</h5>
-            </div>
-            <div class="modal-body">
-            <!-- Result message goes here -->
-            </div>
-            <div class="modal-footer">
-            <a href="/stats" class="view-stats-button">View Stats</a>
-            <a href="/game" class="play-again-button">Play Again!</a>
-            </div>
-        </div>
-        </div>
-    </div>
+                    <div class="first-row">
+                        <button class="btn">q</button>
+                        <button class="btn">w</button>
+                        <button class="btn">e</button>
+                        <button class="btn">r</button>
+                        <button class="btn">t</button>
+                        <button class="btn">y</button>
+                        <button class="btn">u</button>
+                        <button class="btn">i</button>
+                        <button class="btn">o</button>
+                        <button class="btn">p</button>
+                    </div>
+                    <div class="second-row">
+                        <button class="btn">a</button>
+                        <button class="btn">s</button>
+                        <button class="btn">d</button>
+                        <button class="btn">f</button>
+                        <button class="btn">g</button>
+                        <button class="btn">h</button>
+                        <button class="btn">j</button>
+                        <button class="btn">k</button>
+                        <button class="btn">l</button>
+                    </div>
+                    <div class="third-row">
+                        <button class="delete">Delete</button>
+                        <button class="btn">z</button>
+                        <button class="btn">x</button>
+                        <button class="btn">c</button>
+                        <button class="btn">v</button>
+                        <button class="btn">b</button>
+                        <button class="btn">n</button>
+                        <button class="btn">m</button>
+                        <button class="enter">Enter</button>
+                    </div>
 
-</main>
+                </div>
+            </main>
 
-<%- include ('../partials/footer') %>
+            <%- include ('../partials/footer') %>
