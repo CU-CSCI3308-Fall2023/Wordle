@@ -1,0 +1,11 @@
+.container {
+    display: grid;
+    place-items: center;
+    width: 100%;
+}
+
+
+
+.col-sm-2 {
+    text-align: center;
+}
