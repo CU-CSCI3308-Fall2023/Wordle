@@ -97,6 +97,8 @@ document
 
     if (response.canKeepGuessing) {
       guesses.push(''); // jump to next row
+    } else {
+      disableAllInputs();
     }
 
     updateBoardColors(response);
@@ -214,3 +216,9 @@ document.addEventListener('keyup', event => {
     });
   }
 });
+
+function disableAllInputs() {
+  document.querySelectorAll('#keyboard button').forEach(el => {
+    el.disabled = true;
+  });
+}
