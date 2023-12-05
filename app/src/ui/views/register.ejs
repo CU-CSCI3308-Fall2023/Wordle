@@ -1,22 +1,79 @@
 <%- include ('../partials/header') %>
 <div class="wrapper">
-    <link rel="stylesheet" href="/css/registerStyles.css">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="/css/registerStyles.css" />
+    <link
+        href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+        rel="stylesheet"
+    />
     <div class="image">
-        <img class="logo" src="https://1000logos.net/wp-content/uploads/2023/05/Wordle-Emblem.png">
+        <img
+            class="logo"
+            src="https://1000logos.net/wp-content/uploads/2023/05/Wordle-Emblem.png"
+        />
     </div>
-    <form action="/signup" method="POST">
+
+    <form id="register-form" action="/signup" method="POST">
         <h1>Register</h1>
-        <div class="input-box">
-            <input id="name" name="username" type="text" placeholder="Username" required>
-            <i class='bx bxs-user'></i>
+
+        <% if (error) { %>
+        <div id="register-input">
+            <div class="input-box">
+                <input
+                    id="name"
+                    name="username"
+                    type="text"
+                    placeholder="Username"
+                    required
+                    style="border: 1px solid #ef4444"
+                />
+                <i class="bx bxs-user"></i>
+            </div>
+
+            <div class="input-box">
+                <input
+                    id="password"
+                    name="password"
+                    type="password"
+                    placeholder="Password"
+                    required
+                    style="border: 1px solid #ef4444"
+                />
+                <i class="bx bxs-lock-alt"></i>
+            </div>
         </div>
-        <div class="input-box">
-            <input id="password" name="password" type="password" placeholder="Password" required>
-            <i class='bx bxs-lock-alt'></i>
+        <% } else { %>
+        <div id="register-input">
+            <div class="input-box">
+                <input
+                    id="name"
+                    name="username"
+                    type="text"
+                    placeholder="Username"
+                    required
+                />
+                <i class="bx bxs-user"></i>
+            </div>
+
+            <div class="input-box">
+                <input
+                    id="password"
+                    name="password"
+                    type="password"
+                    placeholder="Password"
+                    required
+                />
+                <i class="bx bxs-lock-alt"></i>
+            </div>
         </div>
+        <% } %> <% if (error) { %>
+        <div id="register-error">
+            <p>Username Already Exists, Please Try Again</p>
+        </div>
+        <% } %>
+
         <button type="submit" class="btn">Register</button>
     </form>
+
     <div class="register-link">
         <p>Already have an account? <a href="/login">Login</a></p>
     </div>
