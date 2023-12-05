@@ -86,6 +86,10 @@ function getAllGuessesFeedback(
   return guesses.map(g => getGuessFeedback({ word, guess: g.guess }));
 }
 
+router.get('/', (req, res) => {
+  res.render('views/game');
+});
+
 router.post<StartGameRequest, GuessResponse>('/start', async (req, res) => {
   const guess = req.body.guess.toLowerCase();
   const userId = req.session.user!.id;

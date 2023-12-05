@@ -1,90 +1,94 @@
 <%- include ('../partials/header') %>
     <link rel="stylesheet" href="/css/game.css" type="text/css" />
+    <%- include ('../partials/header') %> <%- include ('../partials/nav-bar') %>
+
+            <script src="/js/game.js" defer></script>
+            <link rel="stylesheet" href="/css/game.css" type="text/css" />
 
 
-    <main>
-        <div id="board">
-            <div class="board-row">
-                <div class="board-col"></div>
-                <div class="board-col"></div>
-                <div class="board-col"></div>
-                <div class="board-col"></div>
-                <div class="board-col"></div>
-            </div>
-            <div class="board-row">
-                <div class="board-col"></div>
-                <div class="board-col"></div>
-                <div class="board-col"></div>
-                <div class="board-col"></div>
-                <div class="board-col"></div>
-            </div>
-            <div class="board-row">
-                <div class="board-col"></div>
-                <div class="board-col"></div>
-                <div class="board-col"></div>
-                <div class="board-col"></div>
-                <div class="board-col"></div>
-            </div>
-            <div class="board-row">
-                <div class="board-col"></div>
-                <div class="board-col"></div>
-                <div class="board-col"></div>
-                <div class="board-col"></div>
-                <div class="board-col"></div>
-            </div>
-            <div class="board-row">
-                <div class="board-col"></div>
-                <div class="board-col"></div>
-                <div class="board-col"></div>
-                <div class="board-col"></div>
-                <div class="board-col"></div>
-            </div>
-            <div class="board-row">
-                <div class="board-col"></div>
-                <div class="board-col"></div>
-                <div class="board-col"></div>
-                <div class="board-col"></div>
-                <div class="board-col"></div>
-            </div>
-        </div>
-        <div id="keyboard">
+            <main>
+                <div id="board">
+                    <div class="board-row">
+                        <div class="board-col"></div>
+                        <div class="board-col"></div>
+                        <div class="board-col"></div>
+                        <div class="board-col"></div>
+                        <div class="board-col"></div>
+                    </div>
+                    <div class="board-row">
+                        <div class="board-col"></div>
+                        <div class="board-col"></div>
+                        <div class="board-col"></div>
+                        <div class="board-col"></div>
+                        <div class="board-col"></div>
+                    </div>
+                    <div class="board-row">
+                        <div class="board-col"></div>
+                        <div class="board-col"></div>
+                        <div class="board-col"></div>
+                        <div class="board-col"></div>
+                        <div class="board-col"></div>
+                    </div>
+                    <div class="board-row">
+                        <div class="board-col"></div>
+                        <div class="board-col"></div>
+                        <div class="board-col"></div>
+                        <div class="board-col"></div>
+                        <div class="board-col"></div>
+                    </div>
+                    <div class="board-row">
+                        <div class="board-col"></div>
+                        <div class="board-col"></div>
+                        <div class="board-col"></div>
+                        <div class="board-col"></div>
+                        <div class="board-col"></div>
+                    </div>
+                    <div class="board-row">
+                        <div class="board-col"></div>
+                        <div class="board-col"></div>
+                        <div class="board-col"></div>
+                        <div class="board-col"></div>
+                        <div class="board-col"></div>
+                    </div>
+                </div>
+                <div id="keyboard">
 
-            <div class="first-row">
-                <button class="btn">q</button>
-                <button class="btn">w</button>
-                <button class="btn">e</button>
-                <button class="btn">r</button>
-                <button class="btn">t</button>
-                <button class="btn">y</button>
-                <button class="btn">u</button>
-                <button class="btn">i</button>
-                <button class="btn">o</button>
-                <button class="btn">p</button>
-            </div>
-            <div class="second-row">
-                <button class="btn">a</button>
-                <button class="btn">s</button>
-                <button class="btn">d</button>
-                <button class="btn">f</button>
-                <button class="btn">g</button>
-                <button class="btn">h</button>
-                <button class="btn">j</button>
-                <button class="btn">k</button>
-                <button class="btn">l</button>
-            </div>
-            <div class="third-row">
-                <button class="delete">Delete</button>
-                <button class="btn">z</button>
-                <button class="btn">x</button>
-                <button class="btn">c</button>
-                <button class="btn">v</button>
-                <button class="btn">b</button>
-                <button class="btn">n</button>
-                <button class="btn">m</button>
-                <button class="enter">Enter</button>
-            </div>
+                    <div class="first-row">
+                        <button class="btn">q</button>
+                        <button class="btn">w</button>
+                        <button class="btn">e</button>
+                        <button class="btn">r</button>
+                        <button class="btn">t</button>
+                        <button class="btn">y</button>
+                        <button class="btn">u</button>
+                        <button class="btn">i</button>
+                        <button class="btn">o</button>
+                        <button class="btn">p</button>
+                    </div>
+                    <div class="second-row">
+                        <button class="btn">a</button>
+                        <button class="btn">s</button>
+                        <button class="btn">d</button>
+                        <button class="btn">f</button>
+                        <button class="btn">g</button>
+                        <button class="btn">h</button>
+                        <button class="btn">j</button>
+                        <button class="btn">k</button>
+                        <button class="btn">l</button>
+                    </div>
+                    <div class="third-row">
+                        <button class="delete">Delete</button>
+                        <button class="btn">z</button>
+                        <button class="btn">x</button>
+                        <button class="btn">c</button>
+                        <button class="btn">v</button>
+                        <button class="btn">b</button>
+                        <button class="btn">n</button>
+                        <button class="btn">m</button>
+                        <button class="enter">Enter</button>
+                    </div>
 
-        </div>
-    </main>
+                </div>
+            </main>
 
-    <%- include ('../partials/footer') %>
+            <%- include ('../partials/footer') %>

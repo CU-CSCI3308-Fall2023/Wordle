@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "esNext",
     "module": "commonjs",
-    "allowJs": false,
+    "allowJs": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,

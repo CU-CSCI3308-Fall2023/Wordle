@@ -1,3 +1,7 @@
+#play-page {
+    min-height: 100vh;
+}
+
 #board {
     display: flex;
     flex-direction: column;
@@ -19,8 +23,29 @@
     border-radius: 0.1rem;
     height: 3.5rem;
     width: 3.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
+.incorrect-letter {
+    background-color: #939393 !important;
+}
+
+.correct-letter {
+    background-color: #c9b457 !important;
+}
+
+.correct-position {
+    background-color: #6baa65 !important;
+}
+
+.square {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 0;
+    text-transform: uppercase;
+}
 
 #keyboard {
     display: flex;
@@ -30,29 +55,29 @@
 }
 .second-row {
     margin: 0.5rem;
-  }
-button {
-    background-color: rgb(86, 86, 86);
-    border: none;
-    display: inline-block;
-    padding: .5rem 1rem;
-    margin: .3rem;
-    font-size: 1.3rem;
-    color: #fff;
-    width: 50px;
-    height: 50px;
-    border-radius: .5rem;
 }
-.btn{
+.btn {
+    margin: 0.3rem;
     background-color: rgb(255, 255, 255);
     border-color: black;
     width: 50px;
+    height: 50px;
     font-weight: 800;
 }
 .delete,
-.enter{
+.enter {
+    margin: 0.3rem;
     font-size: 1rem;
     text-transform: capitalize;
+    background-color: rgb(86, 86, 86);
+    height: 50px;
+    color: #fff;
+    border-radius: 0.5rem;
 }
-.delete { width: 100px; }
-.enter { width: 70px; }
+.delete {
+    width: 100px;
+}
+.enter {
+    width: 70px;
+    padding: 0.5rem 1rem;
+}

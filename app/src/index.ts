@@ -39,10 +39,6 @@ app.get('/', (req, res) => {
     res.redirect('/how-to-play');
 });
 
-app.get('/login', async (req, res) => {
-    res.render('views/login.ejs');
-});
-
 app.get('/how-to-play', async (req, res) => {
     res.render('views/instructions');
 });
