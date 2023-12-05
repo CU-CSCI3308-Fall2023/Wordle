@@ -25,6 +25,11 @@
 4. Worked on the html and css for the game board and keyboard.
 5. Discussed next steps and final goals for the project.
 
+## Tuesday 12/5 1:00 pm CSEL
+1. Aligned/delegated tasks missing to get the project done
+2. Fixed bug where the user could still type/delete characters after the game ended
+3. Worked on the project presentation
+
 # TA Meetings
 
 ## Friday 11/10 4:30 CSEL
