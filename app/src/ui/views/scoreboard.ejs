@@ -1,44 +1,69 @@
 <%- include ('../partials/header') %>
     <%- include ('../partials/nav-bar') %>
-        <link rel="stylesheet" href="/css/stats.css">
+        <link rel="stylesheet" href="/css/scoreboard.css">
         <main>
-            <div class="wrapper">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Position</th>
-                            <th scope="col">Username</th>
-                            <th scope="col">Total Points</th>
-                            <th scope="col">Games Played</th>
-                            <th scope="col">Average Points Per Game</th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
+            <div class="container mt-5" id="leaderboard">
+                <h1 style="text-align: center;">Scoreboard</h1>
+
+                <% if (data.length> 0){%>
+                    <h4>Your Stats</h4>
+                    <div class="row justify-content-center">
+                        <div class="col" style="font-weight: bold;">
+                            <%= data[0].position %>
+                        </div>
+                        <div class="col">
+                            <%= data[0].username%>
+                        </div>
+                        <div class=" col">
+                            <%= data[0].totalPoints%>
+                        </div>
+                        <div class=" col">
+                            <%= data[0].gamesPlayed%>
+                        </div>
+                        <div class="col">
+                            <%= data[0].avgPointsPerGame%>
+                        </div>
+                    </div>
+                    <% }%>
+                        <div class="row justify-content-center bg-light">
+                            <div class="col" style="font-weight: bold;">
+                                Position
+                            </div>
+                            <div class="col" style="font-weight: bold;">
+                                Username
+                            </div>
+                            <div class="col" style="font-weight: bold;">
+                                Total Points
+                            </div>
+                            <div class="col" style="font-weight: bold;">
+                                Games Played
+                            </div>
+                            <div class="col" style="font-weight: bold;">
+                                Average Points Per Game
+                            </div>
+                        </div>
+
+
+
                         <% data.forEach(data=> {%>
-                            <tr>
-                                <td>
+                            <div class=" row justify-content-center">
+                                <div class="col-sm">
                                     <%= data.position %>
-                                </td>
-                                <td>
+                                </div>
+                                <div class="col-md">
                                     <%= data.username%>
-                                </td>
-                                <td class="text">
-                                    <%= data.total_points%>
-                                </td>
-                                <td>
-                                    <%= data.games_played%>
-                                </td>
-                                <td>
-                                    <%= data.avg_points_per_game%>
-                                </td>
-                            </tr>
-
+                                </div>
+                                <div class="col-md">
+                                    <%= data.totalPoints%>
+                                </div>
+                                <div class="col-md">
+                                    <%= data.gamesPlayed%>
+                                </div>
+                                <div class="col-sm">
+                                    <%= data.avgPointsPerGame%>
+                                </div>
+                            </div>
                             <% })%>
-
-                    </tbody>
-                </table>
-
             </div>
         </main>
 
