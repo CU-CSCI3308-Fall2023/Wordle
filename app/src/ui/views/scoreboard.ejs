@@ -2,69 +2,75 @@
     <%- include ('../partials/nav-bar') %>
         <link rel="stylesheet" href="/css/scoreboard.css">
         <main>
-            <div class="contained" id="leaderboard">
-                <h1 style="text-align: center;">Global Scoreboard</h1>
-
-                <div class="row justify-content-center bg-light">
-                    <div class="col" style="font-weight: bold;">
-                        Position
-                    </div>
-                    <div class="col" style="font-weight: bold;">
-                        Username
-                    </div>
-                    <div class="col" style="font-weight: bold;">
-                        Total Points
-                    </div>
-                    <div class="col" style="font-weight: bold;">
-                        Games Played
-                    </div>
-                    <div class="col" style="font-weight: bold;">
-                        Average Points Per Game
-                    </div>
-                </div>
-                <% if (data.length> 0){%>
-                    <h4>Your Stats</h4>
-                    <div class="row justify-content-center">
-                        <div class="col" style="font-weight: bold;">
-                            <%= data[0].position %>
-                        </div>
-                        <div class="col">
-                            <%= data[0].username%>
-                        </div>
-                        <div class=" col">
-                            <%= data[0].totalPoints%>
-                        </div>
-                        <div class=" col">
-                            <%= data[0].gamesPlayed%>
-                        </div>
-                        <div class="col">
-                            <%= data[0].avgPointsPerGame%>
-                        </div>
-                    </div>
-                    <% }%>
 
 
 
-                        <% data.forEach(data=> {%>
-                            <div class=" row justify-content-center">
-                                <div class="col-sm">
-                                    <%= data.position %>
-                                </div>
-                                <div class="col-md">
-                                    <%= data.username%>
-                                </div>
-                                <div class="col-md">
-                                    <%= data.totalPoints%>
-                                </div>
-                                <div class="col-md">
-                                    <%= data.gamesPlayed%>
-                                </div>
-                                <div class="col-sm">
-                                    <%= data.avgPointsPerGame%>
-                                </div>
-                            </div>
-                            <% })%>
+
+
+            <div class="wrapper" id="leaderboard">
+                <h1 class="text-white" style="text-align:center">Global Scoreboard</h1>
+                <table class="table" style="width:auto;">
+                    <thead>
+                        <tr class="justify-content-center text-white" style="background-color: #262626;">
+                            <th scope="col">Position</th>
+                            <th scope="col">Username</th>
+                            <th scope="col">Total Points</th>
+                            <th scope="col">Games Played</th>
+                            <th scope="col">Average Points per Game</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="user_stats">
+                            <% if (data.length> 0){%>
+                                <th scope="row">
+                                    <%= data[0].position %>
+                                </th>
+                                <td style="font-weight: bold;">
+                                    <%= data[0].username%>
+                                </td>
+                                <td style="font-weight: bold;">
+                                    <%= data[0].totalPoints%>
+                                </td>
+                                <td style="font-weight: bold;">
+                                    <%= data[0].gamesPlayed%>
+                                </td>
+                                <td style="font-weight: bold;">
+                                    <%= data[0].avgPointsPerGame%>
+                                </td>
+                                <% }%>
+                        </tr>
+
+                        <% for (let i=1; i <=data.length-1 ; i++) {%>
+                            <tr class="bg-light">
+                                <th scope="row">
+                                    <%= data[i].position %>
+                                </th>
+                                <td style="align-self: center;">
+                                    <%= data[i].username%>
+                                </td>
+                                <td>
+                                    <%= data[i].totalPoints%>
+                                </td>
+                                <td>
+                                    <%= data[i].gamesPlayed%>
+                                </td>
+                                <td>
+                                    <%= data[i].avgPointsPerGame%>
+                                </td>
+                            </tr>
+
+                            <% }%>
+
+
+
+                    </tbody>
+                </table>
             </div>
+
+
+
+
+
         </main>
 
         <%- include ('../partials/footer') %>
