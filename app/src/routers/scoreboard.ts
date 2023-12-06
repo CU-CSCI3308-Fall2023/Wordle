@@ -44,7 +44,7 @@ router.get<never, ScoreboardEntry[]>('/', async (req, res) => {
            user_scores AS (SELECT user_id,
                                   username,
                                   SUM(points)    AS total_points,
-                                  AVG(points)    AS avg_points_per_game,
+                                  ROUND(AVG(points),2)    AS avg_points_per_game,
                                   COUNT(game_id) AS games_played
                            FROM user_games
                            GROUP BY user_id, username)
@@ -66,8 +66,8 @@ router.get<never, ScoreboardEntry[]>('/', async (req, res) => {
   }
 
   // TODO: Replace JSON with UI render when we have the page
-  res.json(
-    scoreboard.map(
+  res.render('views/scoreboard', {
+    data: scoreboard.map(
       ({
         position,
         total_points,
@@ -82,7 +82,7 @@ router.get<never, ScoreboardEntry[]>('/', async (req, res) => {
         gamesPlayed: games_played
       })
     )
-  );
+  });
 });
 
 export default router;
