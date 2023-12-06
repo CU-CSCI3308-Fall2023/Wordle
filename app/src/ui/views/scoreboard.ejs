@@ -3,8 +3,25 @@
         <link rel="stylesheet" href="/css/scoreboard.css">
         <main>
             <div class="contained" id="leaderboard">
-                <h1 style="text-align: center;">Scoreboard</h1>
+                <h1 style="text-align: center;">Global Scoreboard</h1>
 
+                <div class="row justify-content-center bg-light">
+                    <div class="col" style="font-weight: bold;">
+                        Position
+                    </div>
+                    <div class="col" style="font-weight: bold;">
+                        Username
+                    </div>
+                    <div class="col" style="font-weight: bold;">
+                        Total Points
+                    </div>
+                    <div class="col" style="font-weight: bold;">
+                        Games Played
+                    </div>
+                    <div class="col" style="font-weight: bold;">
+                        Average Points Per Game
+                    </div>
+                </div>
                 <% if (data.length> 0){%>
                     <h4>Your Stats</h4>
                     <div class="row justify-content-center">
@@ -25,23 +42,6 @@
                         </div>
                     </div>
                     <% }%>
-                        <div class="row justify-content-center bg-light">
-                            <div class="col" style="font-weight: bold;">
-                                Position
-                            </div>
-                            <div class="col" style="font-weight: bold;">
-                                Username
-                            </div>
-                            <div class="col" style="font-weight: bold;">
-                                Total Points
-                            </div>
-                            <div class="col" style="font-weight: bold;">
-                                Games Played
-                            </div>
-                            <div class="col" style="font-weight: bold;">
-                                Average Points Per Game
-                            </div>
-                        </div>
 
 
 
