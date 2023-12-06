@@ -66,8 +66,8 @@ router.get<never, ScoreboardEntry[]>('/', async (req, res) => {
   }
 
   // TODO: Replace JSON with UI render when we have the page
-  res.json(
-    scoreboard.map(
+  res.render('views/scoreboard', {
+    data: scoreboard.map(
       ({
         position,
         total_points,
@@ -82,7 +82,7 @@ router.get<never, ScoreboardEntry[]>('/', async (req, res) => {
         gamesPlayed: games_played
       })
     )
-  );
+  });
 });
 
 export default router;
