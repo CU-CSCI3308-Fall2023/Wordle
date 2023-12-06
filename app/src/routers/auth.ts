@@ -7,11 +7,11 @@ import { User } from '../types';
 const router = express.Router();
 
 router.get('/login', async (req, res) => {
-  res.render('views/login');
+  res.render('views/login', { error: false });
 });
 
 router.get('/signup', async (req, res) => {
-  res.render('views/register');
+  res.render('views/register', { error: false });
 });
 
 router.post('/login', async (req, res) => {
@@ -33,13 +33,12 @@ router.post('/login', async (req, res) => {
     );
 
     if (!user || !(await bcrypt.compare(password, user.password_hash))) {
-      // TODO: Render the login page with an error message
-      return res.status(401).end();
+      res.render('views/login', { error: true });
+    } else {
+      req.session.user = user;
+      req.session.save();
+      res.redirect('/how-to-play');
     }
-
-    req.session.user = user;
-    req.session.save();
-    res.redirect('/how-to-play');
   } catch (error: unknown) {
     res.status(500).end();
   }
@@ -72,7 +71,8 @@ router.post('/signup', async (req, res) => {
   } catch (error: unknown) {
     // @ts-ignore 23505 is the unique_violation error code (username already exists)
     if (error?.code === '23505') {
-      return res.status(409).end();
+      res.render('views/register', { error: true });
+      return;
     }
 
     res.status(500).end();
