@@ -43,7 +43,8 @@
       "files": ["src/public/**/*.js"],
       "env": {
         "browser": true,
-        "node": false
+        "node": false,
+        "jquery": true
       }
     }
   ]
