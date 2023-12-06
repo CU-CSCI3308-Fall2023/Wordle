@@ -1,5 +1,5 @@
 import bcrypt from 'bcryptjs';
-import chai, { expect } from 'chai';
+import chai, { assert, expect } from 'chai';
 import chaiHttp from 'chai-http';
 import { before } from 'mocha';
 
@@ -7,8 +7,6 @@ import { server } from '../../../src';
 import db from '../../../src/db';
 
 chai.use(chaiHttp);
-
-// TODO: Test that the response contains the desired error messages
 
 const credentials = {
   username: 'test',
@@ -46,8 +44,12 @@ describe('AuthRouter', () => {
         .request(server)
         .post('/login')
         .send({ username: credentials.username, password: 'wrongpassword' })
-        .end((err, res) => {
-          expect(res).to.have.status(401);
+        .end((_, res) => {
+          assert(
+            res.text.includes(
+              'Incorrect Username or Password, Please Try Again'
+            )
+          );
           done();
         });
     });
@@ -126,8 +128,10 @@ describe('AuthRouter', () => {
         .request(server)
         .post('/signup')
         .send(credentials)
-        .end((err, res) => {
-          expect(res).to.have.status(409);
+        .end((_, res) => {
+          assert(
+            res.text.includes('Username Already Exists, Please Try Again')
+          );
           done();
         });
     });
