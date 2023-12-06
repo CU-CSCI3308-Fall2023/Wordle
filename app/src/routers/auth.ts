@@ -74,7 +74,6 @@ router.post('/signup', async (req, res) => {
       res.render('views/register', { error: true });
       return;
     }
-
     res.status(500).end();
   }
 });
