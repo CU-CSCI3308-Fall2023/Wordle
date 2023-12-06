@@ -168,6 +168,15 @@ function updateKeyboard(game) {
 
   if (!game.canKeepGuessing) {
     letters.forEach(letter => (letter.disabled = true));
+    // Display the result modal
+    $('#resultModal').modal('show');
+  
+    // Determine whether the user won or lost and set the result message accordingly
+    const userWon = game.won; // Set this based on your game logic
+    const resultMessage = userWon ? 'Congratulations! You won the game!' : 'Sorry, you ran out of guesses!';
+  
+    // Display the result message in the modal body
+    $('.modal-body').text(resultMessage);
     return;
   }
 
@@ -196,6 +205,19 @@ function updateKeyboard(game) {
     } else if (wrongLetters.includes(letter)) {
       el.classList.add('incorrect-letter');
     }
+  }
+
+  // display success message if the user won the game
+  if(game.won){
+    // Display the result modal
+    $('#resultModal').modal('show');
+  
+    // Determine whether the user won or lost and set the result message accordingly
+    const userWon = game.won; // Set this based on your game logic
+    const resultMessage = userWon ? 'Congratulations! You guessed correctly!' : 'Sorry, you ran out of guesses!';
+  
+    // Display the result message in the modal body
+    $('.modal-body').text(resultMessage);
   }
 }
 

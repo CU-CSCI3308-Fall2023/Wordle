@@ -147,6 +147,25 @@
             <button class="enter">Enter</button>
         </div>
     </div>
+
+    <!-- Bootstrap Modal -->
+    <div class="modal" tabindex="-1" role="dialog" id="resultModal">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Game Over!</h5>
+            </div>
+            <div class="modal-body">
+            <!-- Result message goes here -->
+            </div>
+            <div class="modal-footer">            
+            <a href="/stats" class="view-stats-button">View Stats</a>
+            <a href="/game" class="play-again-button">Play Again!</a>
+            </div>
+        </div>
+        </div>
+    </div>
+      
 </main>
 
 <%- include ('../partials/footer') %>
