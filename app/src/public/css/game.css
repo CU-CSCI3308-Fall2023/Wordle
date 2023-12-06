@@ -2,10 +2,6 @@
     min-height: 100vh;
 }
 
-body {
-    background-color: #2e2e2e;
-}
-
 #board {
     display: flex;
     flex-direction: column;
