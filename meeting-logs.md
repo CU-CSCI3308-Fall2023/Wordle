@@ -44,11 +44,15 @@
 2. Reviewed the Entity-Relationship Diagram for DB and test cases for lab 11.
 3. Discussed next steps.
 
-## Wednesday 11/29 4:45 pm CSEL
+## Wednesday 11/29 4:45 pm ZOOM
 
 1. Discussed final steps of project.
 2. Reviewed what code still needs to be completed.
 3. Asked some questions regarding unit tests.
 4. Finalized presentation time and plans for next meeting: show Shipra our working application during the next meeting (12/06)
 
-## Wednesday 12/06, 4:45 pm CSEL
+## Wednesday 12/06, 4:45 pm ZOOM
+
+1. Demonstrated the app for Shipra.
+2. Discussed tomorrow's final presentation.
+3. Reviewed presentation content.
