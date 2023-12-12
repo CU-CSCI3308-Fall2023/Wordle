@@ -94,7 +94,6 @@ npm run test
 
 ## Deployment
 
-http://recitation12-team-05.eastus.cloudapp.azure.com:3000/login
-
+http://recitation-12-team-05.eastus.cloudapp.azure.com:3000/login
 
 
