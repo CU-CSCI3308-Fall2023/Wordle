@@ -93,7 +93,8 @@ npm run test
 ```
 
 ## Deployment
-TODO
+
+http://recitation12-team-05.eastus.cloudapp.azure.com:3000/login
 
 
 
